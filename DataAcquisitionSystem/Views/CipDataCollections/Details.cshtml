@@ -1,0 +1,122 @@
+﻿@model DataAcquisitionSystem.Models.CipDataCollection
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CipDataCollection</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateTransacted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateTransacted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCollected)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCollected)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fit1FlowRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fit1FlowRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lt1Gallons)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lt1Gallons)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lt2Gallons)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lt2Gallons)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pt1Pressure)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pt1Pressure)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pt2Pressure)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pt2Pressure)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P1Speed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P1Speed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P2Speed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P2Speed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tt1Temperature)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tt1Temperature)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tt2Temperature)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tt2Temperature)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tt3Temperature)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tt3Temperature)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
