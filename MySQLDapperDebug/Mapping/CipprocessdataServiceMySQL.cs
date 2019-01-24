@@ -51,7 +51,20 @@ namespace MySQLDapperDebug.Mapping
         //select all points from one field
         public override IEnumerable<cipprocessdata> GetField(string field)
         {
-            return null;
+            //create data object to return
+            IEnumerable<cipprocessdata> data;
+            //create connection using private string
+            using (var connection = new MySqlConnection(this.connectionString))
+            {
+                //format for Dapper call: stored procedure name, type to create, command type (always should look like this)
+                data = connection.Query<cipprocessdata>("selectallcipprocessdata",
+                    new cipprocessdata(),
+                    commandType: System.Data.CommandType.StoredProcedure);
+                //always close the connection
+                connection.Close();
+            }
+            //return data
+            return data;
         }
     }
 }
