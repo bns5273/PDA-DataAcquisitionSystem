@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MySQLDapperDebug.Mapping;
@@ -7,13 +7,13 @@ using MySQLDapperDebug.Models;
 namespace MySQLDapperDebug.Tests.Mapping
 {
     [TestClass]
-    public class ServiceMySQLTest
+    public class ServiceFirebirdTest
     {
         [TestMethod]
         public void GetAll()
         {
             //arrange
-            CipprocessdataServiceMySQL testService = new CipprocessdataServiceMySQL();
+            CipprocessdataServiceFirebird testService = new CipprocessdataServiceFirebird();
             IEnumerable<cipprocessdata> target = new List<cipprocessdata>();
 
 
@@ -28,7 +28,7 @@ namespace MySQLDapperDebug.Tests.Mapping
         public void GetField()
         {
             //arrange
-            CipprocessdataServiceMySQL testService = new CipprocessdataServiceMySQL();
+            CipprocessdataServiceFirebird testService = new CipprocessdataServiceFirebird();
             IEnumerable<cipprocessdata> target = new List<cipprocessdata>();
 
             //act
@@ -42,7 +42,7 @@ namespace MySQLDapperDebug.Tests.Mapping
         public void GetRange(DateTime begin, DateTime end)
         {
             //arrange
-            CipprocessdataServiceMySQL testService = new CipprocessdataServiceMySQL();
+            CipprocessdataServiceFirebird testService = new CipprocessdataServiceFirebird();
             IEnumerable<cipprocessdata> target = new List<cipprocessdata>();
 
             //act
@@ -54,9 +54,9 @@ namespace MySQLDapperDebug.Tests.Mapping
 
         [TestMethod]
         public void GetAverages(DateTime begin, DateTime end)
-            {
+        {
             //arrange
-            CipprocessdataServiceMySQL testService = new CipprocessdataServiceMySQL();
+            CipprocessdataServiceFirebird testService = new CipprocessdataServiceFirebird();
             IEnumerable<cipprocessdata> target = new List<cipprocessdata>();
 
             //act
@@ -64,6 +64,6 @@ namespace MySQLDapperDebug.Tests.Mapping
 
             //Assert
             Assert.IsNotNull(target);
-           }
+        }
     }
 }

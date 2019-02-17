@@ -39,3 +39,7 @@ C:\Users\hank\Source\Repos\SeniorDesign\MySQLDapperDebug.Tests\obj\Debug\MySQLDa
 C:\Users\hank\Source\Repos\SeniorDesign\MySQLDapperDebug.Tests\obj\Debug\MySQLDapperDebug.Tests.csproj.CopyComplete
 C:\Users\hank\Source\Repos\SeniorDesign\MySQLDapperDebug.Tests\obj\Debug\MySQLDapperDebug.Tests.dll
 C:\Users\hank\Source\Repos\SeniorDesign\MySQLDapperDebug.Tests\obj\Debug\MySQLDapperDebug.Tests.pdb
+C:\Users\Ben\Source\Repos\PDA-DataAcquisitionSystem\MySQLDapperDebug.Tests\obj\Debug\MySQLDapperDebug.Tests.csprojAssemblyReference.cache
+C:\Users\Ben\Source\Repos\PDA-DataAcquisitionSystem\MySQLDapperDebug.Tests\obj\Debug\MySQLDapperDebug.Tests.csproj.CoreCompileInputs.cache
+C:\Users\Ben\Source\Repos\PDA-DataAcquisitionSystem\MySQLDapperDebug.Tests\obj\Debug\MySQLDapperDebug.Tests.dll
+C:\Users\Ben\Source\Repos\PDA-DataAcquisitionSystem\MySQLDapperDebug.Tests\obj\Debug\MySQLDapperDebug.Tests.pdb

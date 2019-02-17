@@ -1,8 +1,13 @@
 {
   "ExpandedNodes": [
     "",
+    "\\MySQLDapperDebug",
+    "\\MySQLDapperDebug.Tests",
+    "\\MySQLDapperDebug.Tests\\Controllers",
+    "\\MySQLDapperDebug.Tests\\Mapping",
+    "\\MySQLDapperDebug\\Controllers",
     "\\WebApp"
   ],
-  "SelectedNode": "\\WebApp\\index.html",
+  "SelectedNode": "\\MySQLDapperDebug.sln",
   "PreviewInSolutionExplorer": false
 }
