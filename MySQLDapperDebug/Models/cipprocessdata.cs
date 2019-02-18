@@ -15,7 +15,7 @@ namespace MySQLDapperDebug.Models
         public int id { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateTransacted { get; set; }
-        public DateTime DateCollecte { get; set; }
+        public DateTime DateCollected { get; set; }
         public float Fit1FlowRate { get; set; }
         public float Lt1Gallons {get;set;}
         public float Lt2Gallons {get;set;}

@@ -15,52 +15,24 @@ namespace MySQLDapperDebug.Tests.Mapping
             //arrange
             CipprocessdataServiceFirebird testService = new CipprocessdataServiceFirebird();
             IEnumerable<cipprocessdata> target = new List<cipprocessdata>();
-
+            DateTime old = new DateTime(2018, 1, 1);
 
             //act
-            target = testService.GetAll();
+            target = testService.GetDataByDateTime(old, System.DateTime.UtcNow);
 
             //Assert
             Assert.IsNotNull(target);
         }
 
         [TestMethod]
-        public void GetField()
+        public void GetAverages()
         {
             //arrange
             CipprocessdataServiceFirebird testService = new CipprocessdataServiceFirebird();
             IEnumerable<cipprocessdata> target = new List<cipprocessdata>();
-
+            DateTime old = new DateTime(2018, 1, 1);
             //act
-            target = testService.GetField("\"id\"");
-
-            //Assert
-            Assert.IsNotNull(target);
-        }
-
-        [TestMethod]
-        public void GetRange(DateTime begin, DateTime end)
-        {
-            //arrange
-            CipprocessdataServiceFirebird testService = new CipprocessdataServiceFirebird();
-            IEnumerable<cipprocessdata> target = new List<cipprocessdata>();
-
-            //act
-            target = testService.GetRange(begin, end);
-
-            //Assert
-            Assert.IsNotNull(target);
-        }
-
-        [TestMethod]
-        public void GetAverages(DateTime begin, DateTime end)
-        {
-            //arrange
-            CipprocessdataServiceFirebird testService = new CipprocessdataServiceFirebird();
-            IEnumerable<cipprocessdata> target = new List<cipprocessdata>();
-
-            //act
-            target = testService.GetAverages(begin, end);
+            target = testService.GetAveragesByDateTime(old, System.DateTime.UtcNow);
 
             //Assert
             Assert.IsNotNull(target);

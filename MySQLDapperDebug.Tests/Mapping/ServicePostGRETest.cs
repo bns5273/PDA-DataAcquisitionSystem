@@ -9,61 +9,39 @@ namespace MySQLDapperDebug.Tests.Mapping
     [TestClass]
     public class ServicePostGRETest
     {
+
         [TestMethod]
-        public void GetAll()
+        public void GetRange()
         {
+            //build variables
+            DateTime old = new DateTime(2018, 1, 1);
+            
             //arrange
             CipprocessdataServicePostGRE testService = new CipprocessdataServicePostGRE();
             IEnumerable<cipprocessdata> target = new List<cipprocessdata>();
 
-
             //act
-            target = testService.GetAll();
+            target = testService.GetDataByDateTime(old, System.DateTime.UtcNow);
 
             //Assert
             Assert.IsNotNull(target);
         }
 
         [TestMethod]
-        public void GetField()
-        {
+        public void GetAverages()
+            {
+            //build variables
+            DateTime old = new DateTime(2018, 1, 1);
+            
             //arrange
             CipprocessdataServicePostGRE testService = new CipprocessdataServicePostGRE();
             IEnumerable<cipprocessdata> target = new List<cipprocessdata>();
 
             //act
-            target = testService.GetField("\"id\"");
+            target = testService.GetAveragesByDateTime(old,System.DateTime.UtcNow);
 
             //Assert
             Assert.IsNotNull(target);
-        }
-
-        [TestMethod]
-        public void GetRange(DateTime begin, DateTime end)
-        {
-            //arrange
-            CipprocessdataServicePostGRE testService = new CipprocessdataServicePostGRE();
-            IEnumerable<cipprocessdata> target = new List<cipprocessdata>();
-
-            //act
-            target = testService.GetRange(begin, end);
-
-            //Assert
-            Assert.IsNotNull(target);
-        }
-
-        [TestMethod]
-        public void GetAverages(DateTime begin, DateTime end)
-        {
-            //arrange
-            CipprocessdataServicePostGRE testService = new CipprocessdataServicePostGRE();
-            IEnumerable<cipprocessdata> target = new List<cipprocessdata>();
-
-            //act
-            target = testService.GetAverages(begin, end);
-
-            //Assert
-            Assert.IsNotNull(target);
-        }
+           }
     }
 }

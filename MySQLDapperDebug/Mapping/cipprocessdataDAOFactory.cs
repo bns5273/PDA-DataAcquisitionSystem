@@ -10,10 +10,10 @@ namespace MySQLDapperDebug.Mapping
     public abstract class cipprocessdataDAOFactory
     {
         //select all records from the database
-        public abstract IEnumerable<cipprocessdata> GetAll();
+        public abstract List<cipprocessdata> GetDataByDateTime(DateTime begin, DateTime end);
 
         //select all points from one field
-        public abstract IEnumerable<cipprocessdata> GetField(string field);
+        public abstract List<cipprocessdata> GetAveragesByDateTime(DateTime begin, DateTime end);
         
     }
 }

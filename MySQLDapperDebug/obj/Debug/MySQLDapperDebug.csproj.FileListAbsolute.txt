@@ -170,7 +170,6 @@ C:\Users\hank\Source\Repos\SeniorDesign\MySQLDapperDebug\obj\Debug\MySQLDapperDe
 C:\Users\hank\Source\Repos\SeniorDesign\MySQLDapperDebug\obj\Debug\MySQLDapperDebug.csproj.CopyComplete
 C:\Users\hank\Source\Repos\SeniorDesign\MySQLDapperDebug\obj\Debug\MySQLDapperDebug.dll
 C:\Users\hank\Source\Repos\SeniorDesign\MySQLDapperDebug\obj\Debug\MySQLDapperDebug.pdb
-C:\Users\Ben\Source\Repos\PDA-DataAcquisitionSystem\MySQLDapperDebug\obj\Debug\MySQLDapperDebug.csprojAssemblyReference.cache
 C:\Users\Ben\Source\Repos\PDA-DataAcquisitionSystem\MySQLDapperDebug\obj\Debug\MySQLDapperDebug.csproj.CoreCompileInputs.cache
 C:\Users\Ben\Source\Repos\PDA-DataAcquisitionSystem\MySQLDapperDebug\obj\Debug\MySQLDapperDebug.dll
 C:\Users\Ben\Source\Repos\PDA-DataAcquisitionSystem\MySQLDapperDebug\obj\Debug\MySQLDapperDebug.pdb

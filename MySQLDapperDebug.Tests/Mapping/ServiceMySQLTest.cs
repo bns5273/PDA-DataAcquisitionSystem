@@ -9,58 +9,35 @@ namespace MySQLDapperDebug.Tests.Mapping
     [TestClass]
     public class ServiceMySQLTest
     {
+
         [TestMethod]
-        public void GetAll()
+        public void GetRange()
         {
+            //build variables
+            DateTime old = new DateTime(2018, 1, 1);
+            
             //arrange
             CipprocessdataServiceMySQL testService = new CipprocessdataServiceMySQL();
-            IEnumerable<cipprocessdata> target = new List<cipprocessdata>();
-
-
+            List<cipprocessdata> target = new List<cipprocessdata>();
             //act
-            target = testService.GetAll();
+            target = testService.GetDataByDateTime(old, System.DateTime.UtcNow);
 
             //Assert
-            Assert.IsNotNull(target);
+            Assert.IsNotNull(target[0]);
         }
 
         [TestMethod]
-        public void GetField()
-        {
-            //arrange
-            CipprocessdataServiceMySQL testService = new CipprocessdataServiceMySQL();
-            IEnumerable<cipprocessdata> target = new List<cipprocessdata>();
-
-            //act
-            target = testService.GetField("\"id\"");
-
-            //Assert
-            Assert.IsNotNull(target);
-        }
-
-        [TestMethod]
-        public void GetRange(DateTime begin, DateTime end)
-        {
-            //arrange
-            CipprocessdataServiceMySQL testService = new CipprocessdataServiceMySQL();
-            IEnumerable<cipprocessdata> target = new List<cipprocessdata>();
-
-            //act
-            target = testService.GetRange(begin, end);
-
-            //Assert
-            Assert.IsNotNull(target);
-        }
-
-        [TestMethod]
-        public void GetAverages(DateTime begin, DateTime end)
+        public void GetAverages()
             {
+            //build variables
+            DateTime old = new DateTime(2018, 1, 1);
+            
             //arrange
             CipprocessdataServiceMySQL testService = new CipprocessdataServiceMySQL();
             IEnumerable<cipprocessdata> target = new List<cipprocessdata>();
 
             //act
-            target = testService.GetAverages(begin, end);
+            target = testService.GetAveragesByDateTime(old,System.DateTime.UtcNow);
 
             //Assert
             Assert.IsNotNull(target);

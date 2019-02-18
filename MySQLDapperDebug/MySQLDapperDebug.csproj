@@ -145,6 +145,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mapping\cipprocessdataDAOFactory.cs" />
+    <Compile Include="Mapping\CipprocessdataServiceFirebird.cs" />
     <Compile Include="Mapping\CipprocessdataServiceMySQL.cs" />
     <Compile Include="Mapping\CipprocessdataServicePostGRE.cs" />
     <Compile Include="Models\cipprocessdata.cs" />

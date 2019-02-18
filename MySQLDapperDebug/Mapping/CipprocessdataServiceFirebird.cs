@@ -18,10 +18,10 @@ namespace MySQLDapperDebug.Mapping
         }
 
         //select all records from the database
-        public override IEnumerable<cipprocessdata> GetAll()
+        public override List<cipprocessdata> GetDataByDateTime(DateTime begin, DateTime end)
         {
             //create data object to return
-            IEnumerable<cipprocessdata> data = null;
+            List<cipprocessdata> data = null;
             //create connection using private string
             //implement
             //return data
@@ -29,14 +29,14 @@ namespace MySQLDapperDebug.Mapping
         }
 
         //select all points from one field
-        public override IEnumerable<cipprocessdata> GetField(string field)
+        public override List<cipprocessdata> GetAveragesByDateTime(DateTime begin, DateTime end)
         {
             //create data object to return
-            IEnumerable<cipprocessdata> data;
+            List<cipprocessdata> data = null;
             //create connection using private string
             //implement
             //return data
-            return null;
+            return data;
         }
     }
 }
