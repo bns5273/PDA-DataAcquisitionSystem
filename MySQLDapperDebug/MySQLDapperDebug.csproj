@@ -144,7 +144,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Mapping\cipprocessdataDAOFactory.cs" />
+    <Compile Include="Mapping\cipprocessdataDAO.cs" />
+    <Compile Include="Mapping\cipprocessdataDAOfactory.cs" />
     <Compile Include="Mapping\CipprocessdataServiceFirebird.cs" />
     <Compile Include="Mapping\CipprocessdataServiceMySQL.cs" />
     <Compile Include="Mapping\CipprocessdataServicePostGRE.cs" />
@@ -173,6 +174,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <None Include="Views\App\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -187,6 +189,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\App\ReadData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

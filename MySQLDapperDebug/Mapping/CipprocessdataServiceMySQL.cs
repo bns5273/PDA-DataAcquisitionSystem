@@ -8,7 +8,7 @@ using Dapper;
 
 namespace MySQLDapperDebug.Mapping
 {
-    public class CipprocessdataServiceMySQL : cipprocessdataDAOFactory
+    public class CipprocessdataServiceMySQL : cipprocessdataDAO
     {
         //connection string hardcoded to test mysql server
         private readonly string connectionString = "server=127.0.0.1;user=root;database=seniordesign;port=3306;password=root";

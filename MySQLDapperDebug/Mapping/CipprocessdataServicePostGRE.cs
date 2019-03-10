@@ -8,7 +8,7 @@ using Dapper;
 
 namespace MySQLDapperDebug.Mapping
 {
-    public class CipprocessdataServicePostGRE : cipprocessdataDAOFactory
+    public class CipprocessdataServicePostGRE : cipprocessdataDAO
     {
         //need private connection string for postgre server here
 

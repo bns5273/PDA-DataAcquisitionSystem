@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MySQLDapperDebug.Mapping;
+using MySQLDapperDebug.Models;
 
 namespace MySQLDapperDebug.Controllers
 {
@@ -16,10 +17,13 @@ namespace MySQLDapperDebug.Controllers
 
         public ActionResult ReadData(string dataBase, DateTime begin, DateTime end)
         {
+            cipprocessdataDAO conn = cipprocessdataDAOfactory.getDAO(dataBase);
+            List<cipprocessdata> data = new List<cipprocessdata>();
             //create instance of database object based on string, pull data from begin to end
 
-            //give data to view for use with graph
-            return View();
+            data = conn.GetDataByDateTime(begin, end);
+
+            return View(data);
         }
 
         public ActionResult ReadAverages(string dataBase, DateTime begin, DateTime end)

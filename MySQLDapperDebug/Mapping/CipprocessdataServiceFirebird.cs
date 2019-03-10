@@ -8,7 +8,7 @@ using Dapper;
 
 namespace MySQLDapperDebug.Mapping
 {
-    public class CipprocessdataServiceFirebird : cipprocessdataDAOFactory
+    public class CipprocessdataServiceFirebird : cipprocessdataDAO
     {
         //need connection string for Firebird server here
 

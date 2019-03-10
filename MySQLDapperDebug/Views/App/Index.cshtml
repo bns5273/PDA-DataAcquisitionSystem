@@ -1,0 +1,126 @@
+@model MySQLDapperDebug.Models.cipprocessdata
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Acquisition System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Reporting Web App</a>
+        </nav>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="border border-dark">
+                <ul class="w-100 nav nav-pills flex-column">
+                    <li class="nav-item"><a class="nav-link active" href="#">Reports</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Trends</a></li>
+                </ul>
+            </nav>
+            <div class="col-sm border border-dark">
+                <div class="container">
+                    <div>
+                        <form>
+                            <input class="datetime" name="StartDate" type="datetime-local" />
+                            <input class="datetime" name="EndDate" type="datetime-local" />
+                        </form>
+                    </div><br />
+                    <div>
+                        <select name="Database">
+                            <option value="">Database</option>
+                            <option value="tempA">Option A</option>
+                            <option value="tempB">Option B</option>
+                            <option value="tempC">Option C</option>
+                        </select>
+                        <select name="Machine">
+                            <option value="">Machine</option>
+                            <option value="tempA">Option A</option>
+                            <option value="tempB">Option B</option>
+                            <option value="tempC">Option C</option>
+                        </select>
+                    </div><br />
+                    <div>
+                        <form name="radio-button">
+                            <input type="radio" name="reportType" value="detail" checked />Detail
+                            <input type="radio" name="reportType" value="summary" />Summary
+                            <button type="button" class="btn btn-dark">Create</button>
+                        </form>
+                    </div>
+                </div>
+                <hr />
+                <div>
+                    <h3>Report A</h3>
+                    <button type="button" class="btn btn-dark">View</button> <br />
+                    <h3>Report B</h3>
+                    <button type="button" class="btn btn-dark">View</button>
+                </div>
+            </div>
+            <div class="col-sm border border-dark">
+                <div>
+                    <h1>Example Graph</h1>
+                    <br />
+                    <div id="myDiv"></div>
+                    <script>
+                        var trace1 = {
+                            x: [1, 2, 3, 4],
+                            y: [10, 15, 13, 17],
+                            type: 'scatter'
+                        };
+
+                        var trace2 = {
+                            x: [1, 2, 3, 4],
+                            y: [16, 5, 11, 9],
+                            type: 'scatter'
+                        };
+
+                        var data = [trace1, trace2];
+
+                        Plotly.newPlot('myDiv', data);</script>
+                </div>
+                <hr />
+                <div>
+                    <h1>Example Table</h1>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Test</td>
+                                <td>Name1</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Test</td>
+                                <td>Name2</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Test</td>
+                                <td>Name3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar fixed-bottom navbar-dark bg-dark">
+            <a class="navbar-brand" href="#"></a>
+        </nav>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>

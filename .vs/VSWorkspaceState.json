@@ -7,8 +7,9 @@
     "\\MySQLDapperDebug.Tests\\Mapping",
     "\\MySQLDapperDebug\\Controllers",
     "\\MySQLDapperDebug\\Mapping",
+    "\\MySQLDapperDebug\\Models",
     "\\WebApp"
   ],
-  "SelectedNode": "\\MySQLDapperDebug\\Mapping\\CipprocessdataServiceFirebird.cs",
+  "SelectedNode": "\\MySQLDapperDebug.sln",
   "PreviewInSolutionExplorer": false
 }
