@@ -1,0 +1,13 @@
+#UserInput{
+    width: 30%;
+    height:auto;
+}
+#Navigation{
+    width: 5%;
+    height:auto;
+}
+#table{
+    overflow: scroll;
+    width: 100%;
+    height: auto;
+}

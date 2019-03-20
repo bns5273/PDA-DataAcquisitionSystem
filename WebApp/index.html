@@ -3,6 +3,7 @@
 <head>
     <title>Data Acquisition System</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
@@ -13,34 +14,36 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <nav class="border border-dark">
+            <nav id="Navigation" class="border border-dark">
                 <ul class="w-100 nav nav-pills flex-column">
                     <li class="nav-item"><a class="nav-link active" href="#">Reports</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Trends</a></li>
                 </ul>
             </nav>
-            <div class="col-sm border border-dark">
+            <div id="UserInput" class="col-sm border border-dark">
                 <div class="container">
                     <div>
+                        <br />
                         <form>
-                            <input class="datetime" name="StartDate" type="datetime-local" />
+                            <input class="datetime" name="StartDate" type="datetime-local"/>
                             <input class="datetime" name="EndDate" type="datetime-local" />
                         </form>
                     </div><br />
-                    <div>
-                        <select name="Database">
-                            <option value="">Database</option>
-                            <option value="tempA">Option A</option>
-                            <option value="tempB">Option B</option>
-                            <option value="tempC">Option C</option>
-                        </select>
-                        <select name="Machine">
-                            <option value="">Machine</option>
-                            <option value="tempA">Option A</option>
-                            <option value="tempB">Option B</option>
-                            <option value="tempC">Option C</option>
-                        </select>
-                    </div><br />
+                          <div>
+                              <select name="Database">
+                                  <option value="">Database</option>
+                                  <option value="MySQL">MySQL</option>
+                                  <option value="Firebird">Firebird</option>
+                                  <option value="PostGRE">PostGRE</option>
+                                  <option value="MongoDB">MongoDB</option>
+                              </select>
+                              <select name="Machine">
+                                  <option value="">Machine</option>
+                                  <option value="Machine 1">Machine 1</option>
+                                  <option value="tempB">Option B</option>
+                                  <option value="tempC">Option C</option>
+                              </select>
+                          </div><br />
                     <div>
                         <form name="radio-button">
                             <input type="radio" name="reportType" value="detail" checked />Detail
@@ -80,8 +83,7 @@
                         Plotly.newPlot('myDiv', data);</script>
                 </div>
                 <hr />
-                <div>
-                    <h1>Example Table</h1>
+                <div  id="table">
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -106,6 +108,7 @@
                                 <td>Test</td>
                                 <td>Name3</td>
                             </tr>
+                        
                         </tbody>
                     </table>
                 </div>
