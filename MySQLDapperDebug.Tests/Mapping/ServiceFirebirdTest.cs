@@ -10,7 +10,7 @@ namespace MySQLDapperDebug.Tests.Mapping
     public class ServiceFirebirdTest
     {
         [TestMethod]
-        public void GetAll()
+        public void GetRange()
         {
             //arrange
             CipprocessdataServiceFirebird testService = new CipprocessdataServiceFirebird();

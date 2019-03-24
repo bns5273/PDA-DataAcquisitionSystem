@@ -10,43 +10,35 @@ namespace MySQLDapperDebug.Mapping
 {
     public class CipprocessdataServiceFirebird : cipprocessdataDAO
     {
-        private readonly string connectionString = "user=root;password=root;database=collectcipprocessdata;port=3050;DataSource=localhost;";
-
-        public CipprocessdataServiceFirebird()
-        {
-            
-        }
+        private readonly string connectionString =
+                                    "User=sysdba;" +
+                                    "Password=masterkey;" +
+                                    "Database=c:/data/TEST.fdb;" +
+                                    "DataSource=localhost;" +
+                                    "Port=3050;";
 
         //select all records from the database
         public override List<cipprocessdata> GetDataByDateTime(DateTime begin, DateTime end)
         {
-            List<dynamic> data = null;
-            
-            // var p = new DynamicParameters();
-            // p.Add("BeginDateTime", begin);
-            // p.Add("EndDateTime", end);
+            List<cipprocessdata> data = null;
 
             using (FbConnection connection = new FbConnection(connectionString))
             {
-                // connection.Open();
+
+                connection.Open();
 
                 // this is different due to the selectable procedure concept
-                data = connection.Query(
-                    "select * from collectcipprocessdata(@begin, @end)",
-                    new { begin, end }).ToList();
-                    // commandType: System.Data.CommandType.Text).ToList();
 
+                String query = String.Format("select * from GetDataByDateTime('{0}', '{1}');",
+                    begin.ToString("yyyy-MM-dd HH:mm:ss"),
+                    end.ToString("yyyy-MM-dd HH:mm:ss"));
+                data = connection.Query<cipprocessdata>(query).ToList();
+
+                // "select * from GetDataByDateTime(@param2, @param2)"
                 connection.Close();
             }
-            //return the data
-            List<cipprocessdata> post = new List<cipprocessdata>();
-            foreach (var item in data)
-            {
-                cipprocessdata cip = (cipprocessdata)item;
-                Console.WriteLine(cip.DateCollected);
-                post.Add(cip);
-            }
-            return post;
+
+            return data;
         }
 
         //select all points from one field
