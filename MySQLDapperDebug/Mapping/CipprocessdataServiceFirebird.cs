@@ -44,11 +44,24 @@ namespace MySQLDapperDebug.Mapping
         //select all points from one field
         public override List<cipprocessdata> GetAveragesByDateTime(DateTime begin, DateTime end)
         {
-            //create data object to return
             List<cipprocessdata> data = null;
-            //create connection using private string
-            //implement
-            //return data
+
+            using (FbConnection connection = new FbConnection(connectionString))
+            {
+
+                connection.Open();
+
+                // this is different due to the selectable procedure concept
+
+                String query = String.Format("select * from GetAverageByDateTime('{0}', '{1}');",
+                    begin.ToString("yyyy-MM-dd HH:mm:ss"),
+                    end.ToString("yyyy-MM-dd HH:mm:ss"));
+                data = connection.Query<cipprocessdata>(query).ToList();
+
+                // "select * from GetDataByDateTime(@param2, @param2)"
+                connection.Close();
+            }
+
             return data;
         }
     }
