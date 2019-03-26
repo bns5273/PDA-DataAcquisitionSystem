@@ -53,7 +53,7 @@ namespace MySQLDapperDebug.Mapping
 
                 // this is different due to the selectable procedure concept
 
-                String query = String.Format("select * from GetAverageByDateTime('{0}', '{1}');",
+                String query = String.Format("select * from GetAveragesByDateTime('{0}', '{1}');",
                     begin.ToString("yyyy-MM-dd HH:mm:ss"),
                     end.ToString("yyyy-MM-dd HH:mm:ss"));
                 data = connection.Query<cipprocessdata>(query).ToList();
