@@ -21,8 +21,8 @@ namespace MySQLDapperDebug.Models
         public float Lt2Gallons {get;set;}
         public float Pt1Pressure {get;set;}
         public float Pt2Pressure {get;set;}
-        public float Pt1Speed {get;set;}
-        public float Pt2Speed {get;set;}
+        public float P1Speed {get;set;}
+        public float P2Speed {get;set;}
         public float Tt1Temperature {get;set;}
         public float Tt2Temperature {get;set;}
         public float Tt3Temperature {get;set;}
