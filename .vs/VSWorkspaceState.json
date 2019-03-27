@@ -1,15 +1,16 @@
 {
   "ExpandedNodes": [
     "",
+    "\\Local settings (.vs)",
+    "\\Local settings (.vs)\\config",
     "\\MySQLDapperDebug",
     "\\MySQLDapperDebug.Tests",
     "\\MySQLDapperDebug.Tests\\Controllers",
     "\\MySQLDapperDebug.Tests\\Mapping",
     "\\MySQLDapperDebug\\Controllers",
     "\\MySQLDapperDebug\\Mapping",
-    "\\MySQLDapperDebug\\Models",
-    "\\WebApp"
+    "\\MySQLDapperDebug\\Models"
   ],
-  "SelectedNode": "\\MySQLDapperDebug.sln",
+  "SelectedNode": "\\Local settings (.vs)\\config",
   "PreviewInSolutionExplorer": false
 }

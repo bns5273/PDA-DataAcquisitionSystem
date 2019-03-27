@@ -430,3 +430,5 @@ C:\Users\Brett\source\repos\PDA-DataAcquisitionSystem\MySQLDapperDebug\obj\Debug
 C:\Users\Brett\source\repos\PDA-DataAcquisitionSystem\MySQLDapperDebug\obj\Debug\MySQLDapperDebug.pdb
 C:\Users\Brett\source\repos\PDA-DataAcquisitionSystem\MySQLDapperDebug\bin\FirebirdSql.Data.FirebirdClient.dll
 C:\Users\Brett\source\repos\PDA-DataAcquisitionSystem\MySQLDapperDebug\bin\FirebirdSql.Data.FirebirdClient.pdb
+C:\Users\TylerPC\source\repos\PDA-DataAcquisitionSystem\MySQLDapperDebug\bin\FirebirdSql.Data.FirebirdClient.dll
+C:\Users\TylerPC\source\repos\PDA-DataAcquisitionSystem\MySQLDapperDebug\bin\FirebirdSql.Data.FirebirdClient.pdb

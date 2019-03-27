@@ -1,11 +1,13 @@
-@model MySQLDapperDebug.Models.cipprocessdata
+@model IEnumerable<MySQLDapperDebug.Models.cipprocessdata>
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Data Acquisition System</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="~\Views\App\Style.css" />
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="~/Views/App/JavaScript.js"></script>
 </head>
 <body>
     <div>
@@ -24,18 +26,18 @@
             <div id="UserInput" class="col-sm border border-dark">
                 <div class="container">
                     <div>
-                        <form>
-                            <input class="datetime" name="StartDate" type="datetime-local" />
-                            <input class="datetime" name="EndDate" type="datetime-local" />
+                        <form id="collectDateTime">
+                            <input id="startDate" class="datetime" name="StartDate" type="datetime-local" />
+                            <input id="endDate" class="datetime" name="EndDate" type="datetime-local" />
                         </form>
                     </div><br />
                     <div>
-                        <select name="Database">
+                        <select id="Database" name="Database">
                             <option value="">Database</option>
                             <option value="MySQL">MySQL</option>
-                            <option value="Firebird">Firebird</option>
-                            <option value="PostGRE">PostGRE</option>
-                            <option value="MongoDB">MongoDB</option>
+                            <option value="firebird">Firebird</option>
+                            <option value="postgre">PostGRE</option>
+                            <option value="">MongoDB</option>
                         </select>
                         <select name="Machine">
                             <option value="">Machine</option>
@@ -43,12 +45,28 @@
                             <option value="tempB">Option B</option>
                             <option value="tempC">Option C</option>
                         </select>
+                        <select name="Sensor">
+                            <option value="">Sensor</option>
+                            <option value="Fit1FlowRate">Fit1FlowRate</option>
+                            <option value="Lt1Gallons">Lt1Gallons</option>
+                            <option value="Lt2Gallons">Lt2Gallons</option>
+                            <option value="Pt1Pressure">Pt1Pressure</option>
+                            <option value="Pt2Pressure">Pt2Pressure</option>
+                            <option value="P1Speed">P1Speed</option>
+                            <option value="P2Speed">P2Speed</option>
+                            <option value="Tt1Temperature">Tt1Temperature</option>
+                            <option value="Tt2Temperature">Tt2Temperature</option>
+                            <option value="Tt3Temperature">Tt3Temperature</option>
+                        </select>
                     </div><br />
                     <div>
-                        <form name="radio-button">
+                        <form name="ReportTypeSelection">
                             <input type="radio" name="reportType" value="detail" checked />Detail
                             <input type="radio" name="reportType" value="summary" />Summary
-                            <button type="button" class="btn btn-dark">Create</button>
+                            <button type="button" class="btn btn-dark" onclick="window.location.href = 'ReadData?dataBase=' + document.getElementById('Database').value + '&begin='
+        + document.getElementById('startDate').value + '&end=' + document.getElementById('endDate').value">
+                                Create
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -62,54 +80,26 @@
             </div>
             <div class="col-sm border border-dark">
                 <div>
-                    <h1>Example Graph</h1>
                     <br />
-                    <div id="myDiv"></div>
-                    <script>
-                        var trace1 = {
-                            x: [1, 2, 3, 4],
-                            y: [10, 15, 13, 17],
-                            type: 'scatter'
-                        };
-
-                        var trace2 = {
-                            x: [1, 2, 3, 4],
-                            y: [16, 5, 11, 9],
-                            type: 'scatter'
-                        };
-
-                        var data = [trace1, trace2];
-
-                        Plotly.newPlot('myDiv', data);</script>
+                    <div id="graphDiv">
+                        <script>
+                            Plotly.newPlot('graphDiv',);
+                        </script>
+                    </div>
                 </div>
                 <hr />
                 <div id="table">
-                    <table class="table table-hover">
-                        <thead>
+                        <table class="table table-hover">
+
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Test</td>
-                                <td>Name1</td>
+                                <th>DateCollected</th>
+                                <th>Selected Sensor</th>
                             </tr>
                             <tr>
-                                <th scope="row">2</th>
-                                <td>Test</td>
-                                <td>Name2</td>
+                                <td></td>
+                                <td></td>
                             </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Test</td>
-                                <td>Name3</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                        </table>
                 </div>
             </div>
         </div>
