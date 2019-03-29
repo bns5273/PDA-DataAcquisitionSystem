@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using MySQLDapperDebug.Mapping;
 using MySQLDapperDebug.Models;
+using Newtonsoft.Json;
 
 namespace MySQLDapperDebug.Controllers
 {
@@ -22,7 +23,8 @@ namespace MySQLDapperDebug.Controllers
             //create instance of database object based on string, pull data from begin to end
 
             data = conn.GetDataByDateTime(begin, end);
-
+            String model = JsonConvert.SerializeObject(data);
+            ViewData["Data"] = data;
             return View(data);
         }
 

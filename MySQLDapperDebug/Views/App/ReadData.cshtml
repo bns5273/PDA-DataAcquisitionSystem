@@ -82,9 +82,82 @@
                 <div>
                     <br />
                     <div id="graphDiv">
-                        <script>
-                            var trace = {};
-                            var data = [trace];
+                        <script type="text/javascript">
+                            function generateGraph(Sensor) {
+                                if (Sensor != "") {
+                                    console.log(Sensor);
+                                    var Data = @Html.Raw(Json.Encode(ViewData["Data"]));
+                                    var i = "";
+                                    console.log(Data);
+                                    var yData;
+                                    var xData;
+                                    if (Sensor === "Fit1FlowRate") {
+                                        for (i in Data) {
+                                            yData.push(Data.Fit1FlowRate);
+                                        }
+                                    }
+                                    else if (Sensor === "Lt1Gallons") {
+                                        for (i in Data) {
+                                            yData.push(Data.Lt1Gallons);
+                                        }
+                                    }
+                                    else if (Sensor === "Lt2Gallons") {
+                                        for (i in Data) {
+                                            yData.push(Data.Lt2Gallons);
+                                        }
+                                    }
+                                    else if (Sensor === "Pt1Pressure") {
+                                        for (i in Data) {
+                                            yData.push(Data.Pt1Pressure);
+                                        }
+                                    }
+                                    else if (Sensor === "Pt2Pressure") {
+                                        for (i in Data) {
+                                            yData.push(Data.Pt2Pressure);
+                                        }
+                                    }
+                                    else if (Sensor === "P1Speed") {
+                                        for (i in Data) {
+                                            yData.push(Data.P1Speed);
+                                        }
+                                    }
+                                    else if (Sensor === "P2Speed") {
+                                        for (i in Data) {
+                                            yData.push(Data.P2Speed);
+                                        }
+                                    }
+                                    else if (Sensor === "Tt1Temperature") {
+                                        for (i in Data) {
+                                            yData.push(Data.Tt1Temperature);
+                                        }
+                                    }
+                                    else if (Sensor === "Tt2Temperature") {
+                                        for (i in Data) {
+                                            yData.push(Data.Tt2Temperature);
+                                        }
+                                    }
+                                    else {
+                                        for (i in Data) {
+                                            yData.push(Data.Tt3Temperature);
+                                        }
+                                    }
+                                    for (i in Data.DateCreated) {
+                                        xData.push(Data.DateCreated);
+                                    }
+                                    console.log(xData);
+                                    console.log(yData);
+                                    var trace = {
+                                        x: xData,
+                                        y: yData,
+                                        type: 'Scatter'
+                                    };
+                                    var data = [trace];
+                                    Plotly.newPlot('graphDiv', data);
+                                }
+                            }
+                        </script>
+                        <script type="text/javascript">
+                            var data = [];
                             Plotly.newPlot('graphDiv', data);
                         </script>
                     </div>
