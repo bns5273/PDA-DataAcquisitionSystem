@@ -5,9 +5,9 @@
 <head>
     <title>Data Acquisition System</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="~\Views\App\Style.css" />
+    <link rel="stylesheet" href="~/Content/ReadDataStyles.css" type="text/css"/>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script src="~/Views/App/JavaScript.js"></script>
+
 </head>
 <body>
     <div>
@@ -27,8 +27,8 @@
                 <div class="container">
                     <div>
                         <form id="collectDateTime">
-                            <input id="startDate" class="datetime" name="StartDate" type="datetime-local" />
-                            <input id="endDate" class="datetime" name="EndDate" type="datetime-local" />
+                            <h3>Start Date:</h3><input id="startDate" class="datetime" name="StartDate" type="datetime-local" />
+                            <h3>End Date:</h3><input id="endDate" class="datetime" name="EndDate" type="datetime-local" />
                         </form>
                     </div><br />
                     <div>
@@ -45,7 +45,7 @@
                             <option value="tempB">Option B</option>
                             <option value="tempC">Option C</option>
                         </select>
-                        <select name="Sensor">
+                        <select id="Sensor" name="Sensor" onchange="generateGraph(document.getElementById('Sensor').value)">
                             <option value="">Sensor</option>
                             <option value="Fit1FlowRate">Fit1FlowRate</option>
                             <option value="Lt1Gallons">Lt1Gallons</option>
@@ -78,33 +78,51 @@
                     <button type="button" class="btn btn-dark">View</button>
                 </div>
             </div>
-            <div class="col-sm border border-dark">
+            <div id="DisplayDiv" class="col-sm border border-dark">
                 <div>
                     <br />
                     <div id="graphDiv">
                         <script>
-                            var xFlowRate = @foreach (var item in Model) {};
-                            var yData;
+                            var trace = {};
+                            var data = [trace];
                             Plotly.newPlot('graphDiv', data);
                         </script>
                     </div>
                 </div>
                 <hr />
                 <div id="table">
-                    @foreach (var item in Model)
-                    {
                         <table class="table table-hover">
 
                             <tr>
-                                <th>DateCollected</th>
-                                <th>Selected Sensor</th>
+                                <th>DateCreated</th>
+                                <th>Fit1FlowRate</th>
+                                <th>Lt1Gallons</th>
+                                <th>Lt2Gallons</th>
+                                <th>Pt1Pressure</th>
+                                <th>Pt2Pressure</th>
+                                <th>P1Speed</th>
+                                <th>P2Speed</th>
+                                <th>Tt1Temperature</th>
+                                <th>Tt2Temperature</th>
+                                <th>Tt3Temperature</th>
                             </tr>
+                            
+                            @foreach(var item in Model) {
                             <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                                <td>@item.DateCreated</td>
+                                <td>@item.Fit1FlowRate</td>
+                                <td>@item.Lt1Gallons</td>
+                                <td>@item.Lt2Gallons</td>
+                                <td>@item.Pt1Pressure</td>
+                                <td>@item.Pt2Pressure</td>
+                                <td>@item.P1Speed</td>
+                                <td>@item.P2Speed</td>
+                                <td>@item.Tt1Temperature</td>
+                                <td>@item.Tt2Temperature</td>
+                                <td>@item.Tt3Temperature</td>
+                            </tr> 
+                            }  
                         </table>
-                    }
                 </div>
             </div>
         </div>

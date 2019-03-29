@@ -1,0 +1,16 @@
+﻿body {
+}
+
+#table{
+    height:40%;
+    overflow: scroll;
+}
+
+#userInput{
+    display:inline-block;
+    height: 850px;
+}
+#DisplayDiv {
+    display: inline-block;
+    height: 850px;
+}

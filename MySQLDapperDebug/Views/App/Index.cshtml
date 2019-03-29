@@ -5,9 +5,9 @@
 <head>
     <title>Data Acquisition System</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="~\Views\App\Style.css" />
+    <link rel="stylesheet" href="~/Content/ReadDataStyles.css" type="text/css" />
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script src="~/Views/App/JavaScript.js"></script>
+
 </head>
 <body>
     <div>
@@ -78,12 +78,13 @@
                     <button type="button" class="btn btn-dark">View</button>
                 </div>
             </div>
-            <div class="col-sm border border-dark">
+            <div  class="col-sm border border-dark">
                 <div>
                     <br />
                     <div id="graphDiv">
                         <script>
-                            Plotly.newPlot('graphDiv',);
+
+                            Plotly.newPlot('graphDiv', data);
                         </script>
                     </div>
                 </div>
