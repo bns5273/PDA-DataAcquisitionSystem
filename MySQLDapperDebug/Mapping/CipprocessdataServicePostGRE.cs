@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using MySql.Data.MySqlClient;
+using Npgsql;
 using MySQLDapperDebug.Models;
 using Dapper;
 
@@ -10,32 +10,45 @@ namespace MySQLDapperDebug.Mapping
 {
     public class CipprocessdataServicePostGRE : cipprocessdataDAO
     {
-        //need private connection string for postgre server here
+        private readonly string connectionString = 
+            "Server=localhost;" +
+            "Port=5432;" +
+            "Database=;" +
+            "User Id=;" +
+            "Password=root;";
 
-        public CipprocessdataServicePostGRE()
-        {
-             //implement
-        }
 
-        //select all records from the database
         public override List<cipprocessdata> GetDataByDateTime(DateTime begin, DateTime end)
         {
-            //create data object to return
             List<cipprocessdata> data = null;
-            //create connection using private string
-            //implement
-            //return data
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+
+                data = connection.Query<cipprocessdata>("GetDataByDateTime",
+                    new { param1 = begin, param2 = end },
+                    commandType: System.Data.CommandType.StoredProcedure).ToList();
+                connection.Close();
+            }
+
             return data;
         }
 
-        //select all points from one field
         public override List<cipprocessdata> GetAveragesByDateTime(DateTime begin, DateTime end)
         {
-            //create data object to return
             List<cipprocessdata> data = null;
-            //create connection using private string
-             //implement
-            //return data
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+
+                data = connection.Query<cipprocessdata>("GetAveragesByDateTime",
+                    new { param1 = begin, param2 = end },
+                    commandType: System.Data.CommandType.StoredProcedure).ToList();
+                connection.Close();
+            }
+
             return data;
         }
     }

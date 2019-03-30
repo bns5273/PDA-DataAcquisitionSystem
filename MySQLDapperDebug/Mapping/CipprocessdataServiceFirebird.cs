@@ -13,7 +13,7 @@ namespace MySQLDapperDebug.Mapping
         private readonly string connectionString =
                                     "User=sysdba;" +
                                     "Password=masterkey;" +
-                                    "Database=c:/data/TEST.fdb;" +
+                                    "Database=c:/db/data.fdb;" +
                                     "DataSource=localhost;" +
                                     "Port=3050;";
 
@@ -27,14 +27,13 @@ namespace MySQLDapperDebug.Mapping
 
                 connection.Open();
 
-                // this is different due to the selectable procedure concept
+                // dapper nicely handles the selectable procedure concept under the hood!
+                // this implementation does not build a query string and thus doesn't
+                // risk injection attacks
+                data = connection.Query<cipprocessdata>("GetDataByDateTime",
+                    new { param1 = begin, param2 = end },
+                    commandType: System.Data.CommandType.StoredProcedure).ToList();
 
-                String query = String.Format("select * from GetDataByDateTime('{0}', '{1}');",
-                    begin.ToString("yyyy-MM-dd HH:mm:ss"),
-                    end.ToString("yyyy-MM-dd HH:mm:ss"));
-                data = connection.Query<cipprocessdata>(query).ToList();
-
-                // "select * from GetDataByDateTime(@param2, @param2)"
                 connection.Close();
             }
 
@@ -51,14 +50,27 @@ namespace MySQLDapperDebug.Mapping
 
                 connection.Open();
 
-                // this is different due to the selectable procedure concept
+                data = connection.Query<cipprocessdata>("GetAveragesByDateTime",
+                    new { param1 = begin, param2 = end },
+                    commandType: System.Data.CommandType.StoredProcedure).ToList();
+                connection.Close();
+            }
 
-                String query = String.Format("select * from GetAveragesByDateTime('{0}', '{1}');",
-                    begin.ToString("yyyy-MM-dd HH:mm:ss"),
-                    end.ToString("yyyy-MM-dd HH:mm:ss"));
-                data = connection.Query<cipprocessdata>(query).ToList();
+            return data;
+        }
 
-                // "select * from GetDataByDateTime(@param2, @param2)"
+        // currently only implemented for Firebird
+        public List<cipprocessdata> GetMovingAveragesByDateTime(DateTime begin, DateTime end)
+        {
+            List<cipprocessdata> data = null;
+
+            using (FbConnection connection = new FbConnection(connectionString))
+            {
+                connection.Open();
+
+                data = connection.Query<cipprocessdata>("GetMovingAveragesByDateTime",
+                    new { param1 = begin, param2 = end },
+                    commandType: System.Data.CommandType.StoredProcedure).ToList();
                 connection.Close();
             }
 

@@ -12,6 +12,7 @@ namespace MySQLDapperDebug.Models
     public class cipprocessdata
     {
         //primary key id
+       // public int QualityCode { get; set; }
         public int id { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateTransacted { get; set; }
