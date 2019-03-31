@@ -63,8 +63,7 @@
                         <form name="ReportTypeSelection">
                             <input type="radio" name="reportType" value="detail" checked />Detail
                             <input type="radio" name="reportType" value="summary" />Summary
-                            <button type="button" class="btn btn-dark" onclick="window.location.href = 'ReadData?dataBase=' + document.getElementById('Database').value + '&begin='
-        + document.getElementById('startDate').value + '&end=' + document.getElementById('endDate').value">
+                            <button type="button" class="btn btn-dark" onclick="createNewGraph()">
                                 Create
                             </button>
                         </form>
@@ -108,9 +107,18 @@
             <a class="navbar-brand" href="#"></a>
         </nav>
     </div>
-
-
-
+    <script>
+        function createNewGraph() {
+            //add the current value of sensor to session storage
+            sessionStorage.setItem("Sensor", document.getElementById("Sensor").value)
+            //construct and execute call to ReadData
+            window.location.href = 'ReadData?' +
+                'dataBase=' + document.getElementById('Database').value +
+                '&sensor=' + document.getElementById('Sensor').value +
+                '&begin=' + document.getElementById('startDate').value +
+                '&end=' + document.getElementById('endDate').value;
+        }
+    </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>

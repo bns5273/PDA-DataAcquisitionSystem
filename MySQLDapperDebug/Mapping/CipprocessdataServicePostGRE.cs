@@ -13,8 +13,8 @@ namespace MySQLDapperDebug.Mapping
         private readonly string connectionString = 
             "Server=localhost;" +
             "Port=5432;" +
-            "Database=;" +
-            "User Id=;" +
+            "Database=postgres;" +
+            "User Id=postgres;" +
             "Password=root;";
 
 

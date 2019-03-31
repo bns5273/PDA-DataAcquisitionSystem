@@ -1,7 +1,0 @@
-C:\Users\Ben\Source\Repos\PDA-DataAcquisitionSystem\.vs\MySQLDapperDebug\lut\0\b\MySQLDapperDebug\bin\MySQLDapperDebug.dll.config
-C:\Users\Ben\Source\Repos\PDA-DataAcquisitionSystem\.vs\MySQLDapperDebug\lut\0\b\MySQLDapperDebug\bin\MySQLDapperDebug.dll
-C:\Users\Ben\Source\Repos\PDA-DataAcquisitionSystem\.vs\MySQLDapperDebug\lut\0\b\MySQLDapperDebug\bin\MySQLDapperDebug.pdb
-C:\Users\Ben\Source\Repos\PDA-DataAcquisitionSystem\.vs\MySQLDapperDebug\lut\0\i\MySQLDapperDebug\Debug\MySQLDapperDebug.csproj.CoreCompileInputs.cache
-C:\Users\Ben\Source\Repos\PDA-DataAcquisitionSystem\.vs\MySQLDapperDebug\lut\0\i\MySQLDapperDebug\Debug\MySQLDapperDebug.csproj.CopyComplete
-C:\Users\Ben\Source\Repos\PDA-DataAcquisitionSystem\.vs\MySQLDapperDebug\lut\0\i\MySQLDapperDebug\Debug\MySQLDapperDebug.dll
-C:\Users\Ben\Source\Repos\PDA-DataAcquisitionSystem\.vs\MySQLDapperDebug\lut\0\i\MySQLDapperDebug\Debug\MySQLDapperDebug.pdb

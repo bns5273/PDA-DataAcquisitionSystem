@@ -5,9 +5,56 @@
 <head>
     <title>Data Acquisition System</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" href="~/Content/ReadDataStyles.css" type="text/css"/>
+    <link rel="stylesheet" href="~/Content/ReadDataStyles.css" type="text/css" />
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
 
+        function getTrace(Data) {
+            var x0 = [];
+            var y0 = [];
+
+            var i;
+            for (i = 0; i < Data.length; i++) {
+                // gross! string -> digits -> int -> date
+                // datetimes are in JSON as string like "Date(12341234)"
+                var s = Data[i].DateCreated.replace(/\D/g, '');
+                x0[i] = new Date(parseInt(s, 10));
+                y0[i] = Data[i][selectedSensor];
+            }
+
+            var trace = {
+                x: x0,
+                y: y0,
+                type: 'line',
+                mode: 'lines+markers'
+            }
+
+            var layout = {
+                xaxis: {
+                    type: 'date',
+                    title: 'Time'
+                },
+                yaxis: {
+                    title: 'Value'
+                },
+                title: Sensor.value,
+                //plot_bgcolor: '#c7c7c7'
+            };
+
+            Plotly.newPlot("graphDiv", [trace], layout);
+        }
+
+        function createNewGraph() {
+            //add the current value of sensor to session storage
+            sessionStorage.setItem("Sensor", document.getElementById("Sensor").value)
+            //construct and execute call to ReadData
+            window.location.href = 'ReadData?' +
+                'dataBase=' + document.getElementById('Database').value +
+                '&sensor=' + document.getElementById('Sensor').value +
+                '&begin=' + document.getElementById('startDate').value +
+                '&end=' + document.getElementById('endDate').value;
+        }
+    </script>
 </head>
 <body>
     <div>
@@ -63,11 +110,7 @@
                         <form name="ReportTypeSelection">
                             <input type="radio" name="reportType" value="detail" checked />Detail
                             <input type="radio" name="reportType" value="summary" />Summary
-                            <button type="button" class="btn btn-dark" onclick="window.location.href = 'ReadData?' +
-                                'dataBase=' + document.getElementById('Database').value +
-                                '&sensor=' + document.getElementById('Sensor').value +
-                                '&begin=' + document.getElementById('startDate').value +
-                                '&end=' + document.getElementById('endDate').value">
+                            <button type="button" id="createGraph" class="btn btn-dark" onclick="createNewGraph()">
                                 Create
                             </button>
                         </form>
@@ -84,46 +127,9 @@
             <div id="DisplayDiv" class="col-sm border border-dark">
                 <div>
                     <br />
-                    <div id="graphDiv">
+                    <div id="graphDiv" onload="getTrace()">
                         <script type="text/javascript">
-                            var Data = @Html.Raw(Json.Encode(ViewData["Data"]));
-
-                            var Sensor = document.getElementById('Sensor');
-                            Sensor.addEventListener('change', function (getTrace) {
-                                var x0 = [];
-                                var y0 = [];
-
-                                var i;
-                                for (i = 0; i < Data.length; i++) {
-                                    // gross! string -> digits -> int -> date
-                                    // datetimes are in JSON as string like "Date(12341234)"
-                                    var s = Data[i].DateCreated.replace(/\D/g, '');
-                                    x0[i] = new Date(parseInt(s, 10));
-                                    y0[i] = Data[i][Sensor.value];
-                                }
-
-                                var trace = {
-                                    x: x0,
-                                    y: y0,
-                                    type: 'line',
-                                    mode: 'lines+markers'
-                                }
-
-                                var layout = {
-                                    xaxis: {
-                                        type: 'date',
-                                        title: 'Time'
-                                    },
-                                    yaxis: {
-                                        title: 'Value'
-                                    },
-                                    title: Sensor.value,
-                                    //plot_bgcolor: '#c7c7c7'
-                                };
-
-                                Plotly.newPlot("graphDiv", [trace], layout);
-                            })
-
+                            Sensor.addEventListener('change', getTrace());
                             // create a chart with all fields in case sensor is left unspecified
                             //var data = [];
 
@@ -179,7 +185,20 @@
         </nav>
     </div>
 
-
+    <script>
+        var Data = @Html.Raw(Json.Encode(ViewData["Data"]));
+            //check the selected sensor's value - if it's null, check session storage
+            var Sensor = document.getElementById('Sensor');
+            var selectedSensor = document.getElementById('Sensor').value;
+            if (selectedSensor == "") {
+                //if the stored sensor value is not null, use it
+                var storedSensor = sessionStorage.getItem("Sensor");
+                if (storedSensor != "") {
+                    selectedSensor = storedSensor;
+                }
+        }
+        getTrace(Data);
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
