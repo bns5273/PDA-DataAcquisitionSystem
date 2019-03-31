@@ -70,11 +70,8 @@
                     </div>
                 </div>
                 <hr />
-                <div>
-                    <h3>Report A</h3>
-                    <button type="button" class="btn btn-dark">View</button> <br />
-                    <h3>Report B</h3>
-                    <button type="button" class="btn btn-dark">View</button>
+                <div id="reportDiv">
+                    
                 </div>
             </div>
             <div  class="col-sm border border-dark">
@@ -111,12 +108,21 @@
         function createNewGraph() {
             //add the current value of sensor to session storage
             sessionStorage.setItem('Sensor', document.getElementById('Sensor').value)
-            //construct and execute call to ReadData
-            window.location.href = 'ReadData?' +
+            //construct URL to be stored in sessionStorage re; report representation, window creation
+            var URL = 'ReadData?' +
                 'dataBase=' + document.getElementById('Database').value +
                 '&sensor=' + document.getElementById('Sensor').value +
                 '&begin=' + document.getElementById('startDate').value +
                 '&end=' + document.getElementById('endDate').value;
+            //now we create the array that we will store our report calls in
+            var generatedReports = [];
+            //now we push the new report in to the generatedReports array
+            console.log(URL);
+            generatedReports[0] = URL;
+            //with the array appended, we stringify it and store it in sessionStorage
+            sessionStorage.setItem("reports", JSON.stringify(generatedReports));
+            //Finally we execute the call to ReadData
+            window.location.href = URL;
         }
     </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

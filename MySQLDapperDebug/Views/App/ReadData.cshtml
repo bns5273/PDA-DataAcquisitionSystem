@@ -46,13 +46,24 @@
 
         function createNewGraph() {
             //add the current value of sensor to session storage
-            sessionStorage.setItem("Sensor", document.getElementById("Sensor").value)
-            //construct and execute call to ReadData
-            window.location.href = 'ReadData?' +
+            sessionStorage.setItem('Sensor', document.getElementById('Sensor').value)
+            //construct URL to be stored in sessionStorage re; report representation, window creation
+            var URL = 'ReadData?' +
                 'dataBase=' + document.getElementById('Database').value +
                 '&sensor=' + document.getElementById('Sensor').value +
                 '&begin=' + document.getElementById('startDate').value +
                 '&end=' + document.getElementById('endDate').value;
+            //now we create the array that we will store our report calls in
+            var generatedReports = new Array();
+            //make sure to update the array from our session storage first
+            generatedReports = JSON.parse(sessionStorage.getItem("reports"));
+            //now we push the new report in to the generatedReports array
+            console.log(URL);
+            generatedReports.push(URL);
+            //with the array appended, we stringify it and store it in sessionStorage
+            sessionStorage.setItem("reports", JSON.stringify(generatedReports));
+            //Finally we execute the call to ReadData
+            window.location.href = URL;
         }
     </script>
 </head>
@@ -117,11 +128,38 @@
                     </div>
                 </div>
                 <hr />
-                <div>
-                    <h3>Report A</h3>
-                    <button type="button" class="btn btn-dark">View</button> <br />
-                    <h3>Report B</h3>
-                    <button type="button" class="btn btn-dark">View</button>
+                <div id="reportDiv">
+                    <script>
+                        //now on load, we can populate this area using our reports stored in session storage
+                        //first load the reports into an array
+                        var reports = [];
+                        var URL;
+                        var btn;
+                        reports = JSON.parse(sessionStorage.getItem("reports"));
+                        console.log(reports);
+                        //now iterate through and make a button each run
+                        for (i in reports) {
+                            //unforunately due to JS scoping we have to take closures into account
+                            //we throw the i because otherwise we're going to be remaining in the same scope
+                            try { throw i }
+                            //now we catch it cast to ii and use that for the indexing
+                            catch (ii) {
+                                //we can now create a button and set its report to the value stored in ii
+                                btn = document.createElement("BUTTON");
+                                //these should set the aesthetic properties? I have not yet found how to get these to work in-style.
+                                    btn.type = "button";
+                                    btn.innerHTML = "REPORT" + ii;
+                                btn.class = "btn btn-dark"
+                                //set the onclick function to calling up a past report.
+                                    btn.onclick = function () {
+                                        window.location.href = reports[ii];
+                                }
+                                //append the button to the document
+                                    document.getElementById('reportDiv').appendChild(btn);
+                                }
+                            }
+                        
+                    </script>
                 </div>
             </div>
             <div id="DisplayDiv" class="col-sm border border-dark">
