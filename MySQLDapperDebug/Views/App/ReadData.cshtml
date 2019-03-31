@@ -45,7 +45,7 @@
                             <option value="tempB">Option B</option>
                             <option value="tempC">Option C</option>
                         </select>
-                        <select id="Sensor" name="Sensor" onchange="generateGraph(document.getElementById('Sensor').value)">
+                        <select id="Sensor" name="Sensor">
                             <option value="">Sensor</option>
                             <option value="Fit1FlowRate">Fit1FlowRate</option>
                             <option value="Lt1Gallons">Lt1Gallons</option>
@@ -63,8 +63,11 @@
                         <form name="ReportTypeSelection">
                             <input type="radio" name="reportType" value="detail" checked />Detail
                             <input type="radio" name="reportType" value="summary" />Summary
-                            <button type="button" class="btn btn-dark" onclick="window.location.href = 'ReadData?dataBase=' + document.getElementById('Database').value + '&begin='
-        + document.getElementById('startDate').value + '&end=' + document.getElementById('endDate').value">
+                            <button type="button" class="btn btn-dark" onclick="window.location.href = 'ReadData?' +
+                                'dataBase=' + document.getElementById('Database').value +
+                                '&sensor=' + document.getElementById('Sensor').value +
+                                '&begin=' + document.getElementById('startDate').value +
+                                '&end=' + document.getElementById('endDate').value">
                                 Create
                             </button>
                         </form>
@@ -83,82 +86,54 @@
                     <br />
                     <div id="graphDiv">
                         <script type="text/javascript">
-                            function generateGraph(Sensor) {
-                                if (Sensor != "") {
-                                    console.log(Sensor);
-                                    var Data = @Html.Raw(Json.Encode(ViewData["Data"]));
-                                    var i = "";
-                                    console.log(Data);
-                                    var yData;
-                                    var xData;
-                                    if (Sensor === "Fit1FlowRate") {
-                                        for (i in Data) {
-                                            yData.push(Data.Fit1FlowRate);
-                                        }
-                                    }
-                                    else if (Sensor === "Lt1Gallons") {
-                                        for (i in Data) {
-                                            yData.push(Data.Lt1Gallons);
-                                        }
-                                    }
-                                    else if (Sensor === "Lt2Gallons") {
-                                        for (i in Data) {
-                                            yData.push(Data.Lt2Gallons);
-                                        }
-                                    }
-                                    else if (Sensor === "Pt1Pressure") {
-                                        for (i in Data) {
-                                            yData.push(Data.Pt1Pressure);
-                                        }
-                                    }
-                                    else if (Sensor === "Pt2Pressure") {
-                                        for (i in Data) {
-                                            yData.push(Data.Pt2Pressure);
-                                        }
-                                    }
-                                    else if (Sensor === "P1Speed") {
-                                        for (i in Data) {
-                                            yData.push(Data.P1Speed);
-                                        }
-                                    }
-                                    else if (Sensor === "P2Speed") {
-                                        for (i in Data) {
-                                            yData.push(Data.P2Speed);
-                                        }
-                                    }
-                                    else if (Sensor === "Tt1Temperature") {
-                                        for (i in Data) {
-                                            yData.push(Data.Tt1Temperature);
-                                        }
-                                    }
-                                    else if (Sensor === "Tt2Temperature") {
-                                        for (i in Data) {
-                                            yData.push(Data.Tt2Temperature);
-                                        }
-                                    }
-                                    else {
-                                        for (i in Data) {
-                                            yData.push(Data.Tt3Temperature);
-                                        }
-                                    }
-                                    for (i in Data.DateCreated) {
-                                        xData.push(Data.DateCreated);
-                                    }
-                                    console.log(xData);
-                                    console.log(yData);
-                                    var trace = {
-                                        x: xData,
-                                        y: yData,
-                                        type: 'Scatter'
-                                    };
-                                    var data = [trace];
-                                    Plotly.newPlot('graphDiv', data);
+                            var Data = @Html.Raw(Json.Encode(ViewData["Data"]));
+
+                            var Sensor = document.getElementById('Sensor');
+                            Sensor.addEventListener('change', function (getTrace) {
+                                var x0 = [];
+                                var y0 = [];
+
+                                var i;
+                                for (i = 0; i < Data.length; i++) {
+                                    // gross! string -> digits -> int -> date
+                                    // datetimes are in JSON as string like "Date(12341234)"
+                                    var s = Data[i].DateCreated.replace(/\D/g, '');
+                                    x0[i] = new Date(parseInt(s, 10));
+                                    y0[i] = Data[i][Sensor.value];
                                 }
-                            }
-                        </script>
-                        <script type="text/javascript">
-                            var data = [];
-                            Plotly.newPlot('graphDiv', data);
+
+                                var trace = {
+                                    x: x0,
+                                    y: y0,
+                                    type: 'line',
+                                    mode: 'lines+markers'
+                                }
+
+                                var layout = {
+                                    xaxis: {
+                                        type: 'date',
+                                        title: 'Time'
+                                    },
+                                    yaxis: {
+                                        title: 'Value'
+                                    },
+                                    title: Sensor.value,
+                                    //plot_bgcolor: '#c7c7c7'
+                                };
+
+                                Plotly.newPlot("graphDiv", [trace], layout);
+                            })
+
+                            // create a chart with all fields in case sensor is left unspecified
+                            //var data = [];
+
+                            //for (i = 0; i < Data[0].length; i++) {
+                            //    data[i] = {
+                            //        x: x0,
+                            //        y: Data[i][Sensor],
+                            //        type: 'line'
+                            //    }
+                            //}
                         </script>
                     </div>
                 </div>
@@ -194,7 +169,7 @@
                                 <td>@item.Tt2Temperature</td>
                                 <td>@item.Tt3Temperature</td>
                             </tr> 
-                            }  
+                            }
                         </table>
                 </div>
             </div>
