@@ -39,13 +39,13 @@
                             <option value="postgre">PostGRE</option>
                             <option value="">MongoDB</option>
                         </select>
-                        <select name="Machine">
+                        <select id="Machine">
                             <option value="">Machine</option>
                             <option value="Machine 1">Machine 1</option>
                             <option value="tempB">Option B</option>
                             <option value="tempC">Option C</option>
                         </select>
-                        <select name="Sensor">
+                        <select id="Sensor">
                             <option value="">Sensor</option>
                             <option value="Fit1FlowRate">Fit1FlowRate</option>
                             <option value="Lt1Gallons">Lt1Gallons</option>
@@ -110,7 +110,7 @@
     <script>
         function createNewGraph() {
             //add the current value of sensor to session storage
-            sessionStorage.setItem("Sensor", document.getElementById("Sensor").value)
+            sessionStorage.setItem('Sensor', document.getElementById('Sensor').value)
             //construct and execute call to ReadData
             window.location.href = 'ReadData?' +
                 'dataBase=' + document.getElementById('Database').value +
