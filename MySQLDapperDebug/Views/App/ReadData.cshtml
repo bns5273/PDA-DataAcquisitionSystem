@@ -42,6 +42,17 @@
             };
 
             Plotly.newPlot("graphDiv", [trace], layout);
+
+            // create a chart with all fields in case sensor is left unspecified
+            //var data = [];
+
+            //for (i = 0; i < Data[0].length; i++) {
+            //    data[i] = {
+            //        x: x0,
+            //        y: Data[i][Sensor],
+            //        type: 'line'
+            //    }
+            //}
         }
 
         function createNewGraph() {
@@ -146,18 +157,16 @@
                             catch (ii) {
                                 //we can now create a button and set its report to the value stored in ii
                                 btn = document.createElement("BUTTON");
-                                //these should set the aesthetic properties? I have not yet found how to get these to work in-style.
-                                    btn.type = "button";
-                                    btn.innerHTML = "REPORT" + ii;
-                                btn.class = "btn btn-dark"
+                                btn.setAttribute('class', 'btn btn-dark');
+                                btn.innerHTML = "Report " + ii;
                                 //set the onclick function to calling up a past report.
-                                    btn.onclick = function () {
-                                        window.location.href = reports[ii];
+                                btn.onclick = function () {
+                                    window.location.href = reports[ii];
                                 }
                                 //append the button to the document
-                                    document.getElementById('reportDiv').appendChild(btn);
-                                }
+                                document.getElementById('reportDiv').appendChild(btn);
                             }
+                        }
                         
                     </script>
                 </div>
@@ -168,16 +177,6 @@
                     <div id="graphDiv" onload="getTrace()">
                         <script type="text/javascript">
                             Sensor.addEventListener('change', getTrace());
-                            // create a chart with all fields in case sensor is left unspecified
-                            //var data = [];
-
-                            //for (i = 0; i < Data[0].length; i++) {
-                            //    data[i] = {
-                            //        x: x0,
-                            //        y: Data[i][Sensor],
-                            //        type: 'line'
-                            //    }
-                            //}
                         </script>
                     </div>
                 </div>
