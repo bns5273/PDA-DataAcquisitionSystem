@@ -57,7 +57,7 @@
 
         function createNewGraph() {
             //add the current value of sensor to session storage
-            sessionStorage.setItem('Sensor', document.getElementById('Sensor').value)
+            sessionStorage.setItem('Sensor', document.getElementById('Sensor').value);
             //construct URL to be stored in sessionStorage re; report representation, window creation
             var URL = 'ReadData?' +
                 'dataBase=' + document.getElementById('Database').value +
@@ -66,13 +66,19 @@
                 '&end=' + document.getElementById('endDate').value;
             //now we create the array that we will store our report calls in
             var generatedReports = new Array();
+            //we also create an array to store the sensor corresponding to each report in
+            var pastSensors = new Array();
             //make sure to update the array from our session storage first
             generatedReports = JSON.parse(sessionStorage.getItem("reports"));
-            //now we push the new report in to the generatedReports array
+            //repeat for the sensors array
+            pastSensors = JSON.parse(sessionStorage.getItem("sensors"));
+            //now we push the new report in to the generatedReports array, and the sensor to the selectedSensors array
             console.log(URL);
             generatedReports.push(URL);
+            pastSensors.push(document.getElementById('Sensor').value);
             //with the array appended, we stringify it and store it in sessionStorage
             sessionStorage.setItem("reports", JSON.stringify(generatedReports));
+            sessionStorage.setItem('sensors', JSON.stringify(pastSensors));
             //Finally we execute the call to ReadData
             window.location.href = URL;
         }
@@ -144,8 +150,11 @@
                         //now on load, we can populate this area using our reports stored in session storage
                         //first load the reports into an array
                         var reports = [];
+                        //also load the sensors into an array such that the graph filters correctly
+                        var sensors = [];
                         var URL;
                         var btn;
+                        sensors = JSON.parse(sessionStorage.getItem("sensors"));
                         reports = JSON.parse(sessionStorage.getItem("reports"));
                         console.log(reports);
                         //now iterate through and make a button each run
@@ -161,6 +170,7 @@
                                 btn.innerHTML = "Report " + ii;
                                 //set the onclick function to calling up a past report.
                                 btn.onclick = function () {
+                                    sessionStorage.setItem("Sensor", sensors[ii]);
                                     window.location.href = reports[ii];
                                 }
                                 //append the button to the document

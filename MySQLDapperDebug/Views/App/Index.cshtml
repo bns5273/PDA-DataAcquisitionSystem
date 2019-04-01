@@ -105,7 +105,7 @@
         </nav>
     </div>
     <script>
-        function createNewGraph() {
+        /*function createNewGraph() {
             //add the current value of sensor to session storage
             sessionStorage.setItem('Sensor', document.getElementById('Sensor').value)
             //construct URL to be stored in sessionStorage re; report representation, window creation
@@ -121,6 +121,30 @@
             generatedReports[0] = URL;
             //with the array appended, we stringify it and store it in sessionStorage
             sessionStorage.setItem("reports", JSON.stringify(generatedReports));
+            //Finally we execute the call to ReadData
+            window.location.href = URL;
+        }*/
+
+        function createNewGraph() {
+            //add the current value of sensor to session storage
+            sessionStorage.setItem('Sensor', document.getElementById('Sensor').value);
+            //construct URL to be stored in sessionStorage re; report representation, window creation
+            var URL = 'ReadData?' +
+                'dataBase=' + document.getElementById('Database').value +
+                '&sensor=' + document.getElementById('Sensor').value +
+                '&begin=' + document.getElementById('startDate').value +
+                '&end=' + document.getElementById('endDate').value;
+            //now we create the array that we will store our report calls in
+            var generatedReports = [];
+            //we also create an array to store the sensor corresponding to each report in
+            var pastSensors = [];
+            //make sure to update the array from our session storage first
+            generatedReports[0] = URL;
+            //repeat for the sensors array
+            pastSensors[0] = document.getElementById('Sensor').value;
+            //with the array created, we stringify it and store it in sessionStorage
+            sessionStorage.setItem("reports", JSON.stringify(generatedReports));
+            sessionStorage.setItem('sensors', JSON.stringify(pastSensors));
             //Finally we execute the call to ReadData
             window.location.href = URL;
         }

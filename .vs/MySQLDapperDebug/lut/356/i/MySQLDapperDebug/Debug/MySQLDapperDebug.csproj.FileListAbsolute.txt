@@ -1,0 +1,1 @@
+C:\Users\Ben\Source\Repos\OneOnOneDemo\.vs\MySQLDapperDebug\lut\356\i\MySQLDapperDebug\Debug\MySQLDapperDebug.csproj.CoreCompileInputs.cache
