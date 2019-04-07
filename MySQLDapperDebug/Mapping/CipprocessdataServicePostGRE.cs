@@ -26,8 +26,8 @@ namespace MySQLDapperDebug.Mapping
             {
                 connection.Open();
 
-                data = connection.Query<cipprocessdata>("GetDataByDateTime",
-                    new { param1 = begin, param2 = end },
+                data = connection.Query<cipprocessdata>("\"GetDataByDateTime\"",
+                    new { BeginDateTime = begin, EndDateTime = end },
                     commandType: System.Data.CommandType.StoredProcedure).ToList();
                 connection.Close();
             }
