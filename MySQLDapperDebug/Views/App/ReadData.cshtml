@@ -15,10 +15,7 @@
 
             var i;
             for (i = 0; i < Data.length; i++) {
-                // gross! string -> digits -> int -> date
-                // datetimes are in JSON as string like "Date(12341234)"
-                var s = Data[i].DateCreated.replace(/\D/g, '');
-                x0[i] = new Date(parseInt(s, 10));
+                x0[i] = Data[i].DateCreated;
                 y0[i] = Data[i][selectedSensor];
             }
 
@@ -42,17 +39,6 @@
             };
 
             Plotly.newPlot("graphDiv", [trace], layout);
-
-            // create a chart with all fields in case sensor is left unspecified
-            //var data = [];
-
-            //for (i = 0; i < Data[0].length; i++) {
-            //    data[i] = {
-            //        x: x0,
-            //        y: Data[i][Sensor],
-            //        type: 'line'
-            //    }
-            //}
         }
 
         function createNewGraph() {
@@ -79,8 +65,34 @@
             //with the array appended, we stringify it and store it in sessionStorage
             sessionStorage.setItem("reports", JSON.stringify(generatedReports));
             sessionStorage.setItem('sensors', JSON.stringify(pastSensors));
+
+
             //Finally we execute the call to ReadData
             window.location.href = URL;
+
+
+        }
+
+        // prepare csv
+        function getCsv() {
+            let str = `${Object.keys(Data[0]).map(value => `"${value}"`).join(",")}` + '\r\n';
+
+            str = Data.reduce((str, next) => {
+                str += `${Object.values(next).map(value => `"${value}"`).join(",")}` + '\r\n';
+                return str;
+            }, str);
+
+            // create invisible element to download object, then remove
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(str));
+            element.setAttribute('download', 'download.csv');
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
         }
     </script>
 </head>
@@ -140,6 +152,9 @@
                             <input type="radio" name="reportType" value="summary" />Summary
                             <button type="button" id="createGraph" class="btn btn-dark" onclick="createNewGraph()">
                                 Create
+                            </button>
+                            <button type="submit" id="createCsv" class="btn btn-dark" onclick="getCsv()">
+                                Download
                             </button>
                         </form>
                     </div>
@@ -233,16 +248,31 @@
     </div>
 
     <script>
+        function fixTimestamp(p1) {
+            // gross! string -> digits -> int -> date
+            // datetimes are in JSON as string like "Date(12341234)"
+            var s = p1.replace(/\D/g, '');
+            return new Date(parseInt(s, 10));
+        }
+
         var Data = @Html.Raw(Json.Encode(ViewData["Data"]));
-            //check the selected sensor's value - if it's null, check session storage
-            var Sensor = document.getElementById('Sensor');
-            var selectedSensor = document.getElementById('Sensor').value;
-            if (selectedSensor == "") {
-                //if the stored sensor value is not null, use it
-                var storedSensor = sessionStorage.getItem("Sensor");
-                if (storedSensor != "") {
-                    selectedSensor = storedSensor;
-                }
+        // iterate through json to fix datetimes
+        var i;
+        for (i = 0; i < Data.length; i++) {
+            Data[i].DateCreated = fixTimestamp(Data[i].DateCreated);
+            Data[i].DateTransacted = fixTimestamp(Data[i].DateTransacted);
+            Data[i].DateCollected = fixTimestamp(Data[i].DateCollected);
+        }
+
+        //check the selected sensor's value - if it's null, check session storage
+        var Sensor = document.getElementById('Sensor');
+        var selectedSensor = document.getElementById('Sensor').value;
+        if (selectedSensor == "") {
+            //if the stored sensor value is not null, use it
+            var storedSensor = sessionStorage.getItem("Sensor");
+            if (storedSensor != "") {
+                selectedSensor = storedSensor;
+            }
         }
         getTrace(Data);
     </script>
