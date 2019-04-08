@@ -59,8 +59,7 @@ namespace MySQLDapperDebug.Mapping
             return data;
         }
 
-        // currently only implemented for Firebird
-        public List<cipprocessdata> GetMovingAveragesByDateTime(DateTime begin, DateTime end)
+        public override List<cipprocessdata> GetMovingAveragesByDateTime(DateTime begin, DateTime end)
         {
             List<cipprocessdata> data = null;
 

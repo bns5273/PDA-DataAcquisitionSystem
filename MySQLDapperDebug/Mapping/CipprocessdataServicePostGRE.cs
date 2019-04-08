@@ -43,7 +43,24 @@ namespace MySQLDapperDebug.Mapping
             {
                 connection.Open();
 
-                data = connection.Query<cipprocessdata>("GetAveragesByDateTime",
+                data = connection.Query<cipprocessdata>("\"GetAveragesByDateTime\"",
+                    new { param1 = begin, param2 = end },
+                    commandType: System.Data.CommandType.StoredProcedure).ToList();
+                connection.Close();
+            }
+
+            return data;
+        }
+
+        public override List<cipprocessdata> GetMovingAveragesByDateTime(DateTime begin, DateTime end)
+        {
+            List<cipprocessdata> data = null;
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+
+                data = connection.Query<cipprocessdata>("\"GetMovingAveragesByDateTime\"",
                     new { param1 = begin, param2 = end },
                     commandType: System.Data.CommandType.StoredProcedure).ToList();
                 connection.Close();

@@ -37,5 +37,19 @@ namespace MySQLDapperDebug.Tests.Mapping
             //Assert
             Assert.IsNotNull(target);
         }
+
+        [TestMethod]
+        public void GetMovingAverages()
+        {
+            //arrange
+            CipprocessdataServiceFirebird testService = new CipprocessdataServiceFirebird();
+            IEnumerable<cipprocessdata> target = new List<cipprocessdata>();
+            DateTime old = new DateTime(2018, 1, 1);
+            //act
+            target = testService.GetMovingAveragesByDateTime(old, System.DateTime.UtcNow);
+
+            //Assert
+            Assert.IsNotNull(target);
+        }
     }
 }

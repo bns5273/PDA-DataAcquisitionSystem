@@ -11,7 +11,7 @@ namespace MySQLDapperDebug.Mapping
     public class CipprocessdataServiceMySQL : cipprocessdataDAO
     {
         //connection string hardcoded to test mysql server
-        private readonly string connectionString = "server=127.0.0.1;user=root;database=seniordesign;port=3306;password=root";
+        private readonly string connectionString = "server=127.0.0.1;user=root;database=collectcipprocessdata;port=3306;password=root";
 
         public CipprocessdataServiceMySQL()
         {
@@ -70,6 +70,33 @@ namespace MySQLDapperDebug.Mapping
             {
                 //format for Dapper call: stored procedure name, type to create, command type (always should look like this)
                 data = connection.Query<cipprocessdata>("GetAverageByDateTime",
+                    p,
+                    commandType: System.Data.CommandType.StoredProcedure);
+                //always close the connection
+                connection.Close();
+            }
+            //return the data
+            List<cipprocessdata> post = new List<cipprocessdata>();
+            foreach (var item in data)
+            {
+                post.Add(item);
+            }
+            return post;
+        }
+
+        public override List<cipprocessdata> GetMovingAveragesByDateTime(DateTime begin, DateTime end)
+        {
+            //create data object for return
+            IEnumerable<cipprocessdata> data;
+            //move variables into the Dapper object
+            var p = new DynamicParameters();
+            p.Add("BeginDateTime", begin);
+            p.Add("EndDateTime", end);
+            //create connection using string
+            using (var connection = new MySqlConnection(this.connectionString))
+            {
+                //format for Dapper call: stored procedure name, type to create, command type (always should look like this)
+                data = connection.Query<cipprocessdata>("GetMovingAveragesByDateTime",
                     p,
                     commandType: System.Data.CommandType.StoredProcedure);
                 //always close the connection

@@ -9,11 +9,13 @@ namespace MySQLDapperDebug.Mapping
 {
     public abstract class cipprocessdataDAO
     {
-        //select all records from the database
+        // get all fields of rows between the timestamps
         public abstract List<cipprocessdata> GetDataByDateTime(DateTime begin, DateTime end);
 
-        //select all points from one field
+        // get averages of all relevant fields between the timestamp
         public abstract List<cipprocessdata> GetAveragesByDateTime(DateTime begin, DateTime end);
-        
+
+        // get moving average of all relevant fields between the timestamps
+        public abstract List<cipprocessdata> GetMovingAveragesByDateTime(DateTime begin, DateTime end);
     }
 }
