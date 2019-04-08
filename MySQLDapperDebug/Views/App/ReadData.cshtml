@@ -10,62 +10,82 @@
     <script>
 
         function getTrace(Data) {
-            var x0 = [];
-            var y0 = [];
-
-            var i;
-            for (i = 0; i < Data.length; i++) {
-                x0[i] = Data[i].DateCreated;
-                y0[i] = Data[i][selectedSensor];
+            if (selectedReportType == "Averages") {
+                var x0 = ["Fit1FlowRate", "Lt1Gallons", "Lt2Gallons", "Pt1Pressure", "Pt2Pressure", "P1Speed", "P2Speed", "Tt1Temperature", "Tt2Temperature", "Tt3Temperature"];
+                var y0 = [Data[0].Fit1FlowRate, Data[0].Lt1Gallons, Data[0].Lt2Gallons, Data[0].Pt1Pressure, Data[0].Pt2Pressure, Data[0].P1Speed, Data[0].P2Speed, Data[0].Tt1Temperature, Data[0].Tt2Temperature, Data[0].Tt3Temperature];
+                var trace = {
+                    x: x0,
+                    y: y0,
+                    type: 'bar'
+                }
+                Plotly.newPlot("graphDiv", [trace]);
             }
+            else {
+                var x0 = [];
+                var y0 = [];
 
-            var trace = {
-                x: x0,
-                y: y0,
-                type: 'line',
-                mode: 'lines+markers'
+                var i;
+                for (i = 0; i < Data.length; i++) {
+                    x0[i] = Data[i].DateCreated;
+                    y0[i] = Data[i][selectedSensor];
+                }
+
+                var trace = {
+                    x: x0,
+                    y: y0,
+                    type: 'line',
+                    mode: 'lines+markers'
+                }
+
+                var layout = {
+                    xaxis: {
+                        type: 'date',
+                        title: 'Time'
+                    },
+                    yaxis: {
+                        title: 'Value'
+                    },
+                    title: Sensor.value,
+                    //plot_bgcolor: '#c7c7c7'
+                };
+
+                Plotly.newPlot("graphDiv", [trace], layout);
             }
-
-            var layout = {
-                xaxis: {
-                    type: 'date',
-                    title: 'Time'
-                },
-                yaxis: {
-                    title: 'Value'
-                },
-                title: Sensor.value,
-                //plot_bgcolor: '#c7c7c7'
-            };
-
-            Plotly.newPlot("graphDiv", [trace], layout);
         }
 
         function createNewGraph() {
             //add the current value of sensor to session storage
             sessionStorage.setItem('Sensor', document.getElementById('Sensor').value);
+            //add the current value of reportType to session storage
+            sessionStorage.setItem('ReportType', document.getElementById('reportType').value);
             //construct URL to be stored in sessionStorage re; report representation, window creation
             var URL = 'ReadData?' +
                 'dataBase=' + document.getElementById('Database').value +
                 '&sensor=' + document.getElementById('Sensor').value +
                 '&begin=' + document.getElementById('startDate').value +
-                '&end=' + document.getElementById('endDate').value;
+                '&end=' + document.getElementById('endDate').value +
+                '&reportType=' + document.getElementById('reportType').value;
             //now we create the array that we will store our report calls in
             var generatedReports = new Array();
             //we also create an array to store the sensor corresponding to each report in
             var pastSensors = new Array();
+            //we also create an array to store the reportType corresponding to each report in
+            var pastReportTypes = new Array();
             //make sure to update the array from our session storage first
             generatedReports = JSON.parse(sessionStorage.getItem("reports"));
             //repeat for the sensors array
             pastSensors = JSON.parse(sessionStorage.getItem("sensors"));
+            //repeat for the reportType array
+            pastReportTypes = JSON.parse(sessionStorage.getItem("reportTypes"));
             //now we push the new report in to the generatedReports array, and the sensor to the selectedSensors array
             console.log(URL);
             generatedReports.push(URL);
             pastSensors.push(document.getElementById('Sensor').value);
+            pastReportTypes.push(document.getElementById('reportType').value);
             //with the array appended, we stringify it and store it in sessionStorage
             sessionStorage.setItem("reports", JSON.stringify(generatedReports));
             sessionStorage.setItem('sensors', JSON.stringify(pastSensors));
-
+            sessionStorage.setItem('reportTypes', JSON.stringify(pastReportTypes));
 
             //Finally we execute the call to ReadData
             window.location.href = URL;
@@ -104,12 +124,6 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <nav class="border border-dark">
-                <ul class="w-100 nav nav-pills flex-column">
-                    <li class="nav-item"><a class="nav-link active" href="#">Reports</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Trends</a></li>
-                </ul>
-            </nav>
             <div id="UserInput" class="col-sm border border-dark">
                 <div class="container">
                     <div>
@@ -126,11 +140,11 @@
                             <option value="postgre">PostGRE</option>
                             <option value="">MongoDB</option>
                         </select>
-                        <select id="Machine">
-                            <option value="">Machine</option>
-                            <option value="Machine 1">Machine 1</option>
-                            <option value="tempB">Option B</option>
-                            <option value="tempC">Option C</option>
+                        <select id="reportType">
+                            <option value="">Report</option>
+                            <option value="Date Time">Date Time</option>
+                            <option value="Averages">Averages</option>
+                            <option value="Moving Averages">Moving Averages</option>
                         </select>
                         <select id="Sensor" name="Sensor">
                             <option value="">Sensor</option>
@@ -167,10 +181,13 @@
                         var reports = [];
                         //also load the sensors into an array such that the graph filters correctly
                         var sensors = [];
+                        //also load the reportTypes into an array such that the graph filters correctly
+                        var reportTypes = [];
                         var URL;
                         var btn;
                         sensors = JSON.parse(sessionStorage.getItem("sensors"));
                         reports = JSON.parse(sessionStorage.getItem("reports"));
+                        reportTypes = JSON.parse(sessionStorage.getItem("reportTypes"));
                         console.log(reports);
                         //now iterate through and make a button each run
                         for (i in reports) {
@@ -186,6 +203,7 @@
                                 //set the onclick function to calling up a past report.
                                 btn.onclick = function () {
                                     sessionStorage.setItem("Sensor", sensors[ii]);
+                                    sessionStorage.setItem("ReportType", reportTypes[ii]);
                                     window.location.href = reports[ii];
                                 }
                                 //append the button to the document
@@ -272,6 +290,16 @@
             var storedSensor = sessionStorage.getItem("Sensor");
             if (storedSensor != "") {
                 selectedSensor = storedSensor;
+            }
+        }
+        //check the selected report type's value - if it's null, check session storage
+        var ReportType = document.getElementById('reportType');
+        var selectedReportType = document.getElementById('reportType').value;
+        if (selectedReportType == "") {
+            //if the stored report type value is not null use it
+            var storedReportType = sessionStorage.getItem("ReportType");
+            if (storedReportType != "") {
+                selectedReportType = storedReportType;
             }
         }
         getTrace(Data);

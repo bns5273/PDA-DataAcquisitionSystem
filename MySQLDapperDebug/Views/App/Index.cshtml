@@ -17,12 +17,6 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <nav class="border border-dark">
-                <ul class="w-100 nav nav-pills flex-column">
-                    <li class="nav-item"><a class="nav-link active" href="#">Reports</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Trends</a></li>
-                </ul>
-            </nav>
             <div id="UserInput" class="col-sm border border-dark">
                 <div class="container">
                     <div>
@@ -39,11 +33,11 @@
                             <option value="postgre">PostGRE</option>
                             <option value="">MongoDB</option>
                         </select>
-                        <select id="Machine">
-                            <option value="">Machine</option>
-                            <option value="Machine 1">Machine 1</option>
-                            <option value="tempB">Option B</option>
-                            <option value="tempC">Option C</option>
+                        <select id="reportType">
+                            <option value="">Report</option>
+                            <option value="Date Time">Date Time</option>
+                            <option value="Averages">Averages</option>
+                            <option value="Moving Averages">Moving Averages</option>
                         </select>
                         <select id="Sensor">
                             <option value="">Sensor</option>
@@ -128,23 +122,31 @@
         function createNewGraph() {
             //add the current value of sensor to session storage
             sessionStorage.setItem('Sensor', document.getElementById('Sensor').value);
+            //add the current value of reportType to session storage
+            sessionStorage.setItem('ReportType', document.getElementById('reportType').value);
             //construct URL to be stored in sessionStorage re; report representation, window creation
             var URL = 'ReadData?' +
                 'dataBase=' + document.getElementById('Database').value +
                 '&sensor=' + document.getElementById('Sensor').value +
                 '&begin=' + document.getElementById('startDate').value +
-                '&end=' + document.getElementById('endDate').value;
+                '&end=' + document.getElementById('endDate').value +
+                '&reportType=' + document.getElementById('reportType').value;
             //now we create the array that we will store our report calls in
             var generatedReports = [];
             //we also create an array to store the sensor corresponding to each report in
             var pastSensors = [];
+            //we also create an array to store the report types corresponding to each report in
+            var pastReportTypes = [];
             //make sure to update the array from our session storage first
             generatedReports[0] = URL;
             //repeat for the sensors array
             pastSensors[0] = document.getElementById('Sensor').value;
+            //repeat for the reportTypes array
+            pastReportTypes[0] = document.getElementById('reportType').value;
             //with the array created, we stringify it and store it in sessionStorage
             sessionStorage.setItem("reports", JSON.stringify(generatedReports));
             sessionStorage.setItem('sensors', JSON.stringify(pastSensors));
+            sessionStorage.setItem('reportTypes', JSON.stringify(pastReportTypes));
             //Finally we execute the call to ReadData
             window.location.href = URL;
         }

@@ -16,13 +16,24 @@ namespace MySQLDapperDebug.Controllers
             return View();
         }
 
-        public ActionResult ReadData(string dataBase, DateTime begin, DateTime end)
+        public ActionResult ReadData(string dataBase, DateTime begin, DateTime end, string reportType)
         {
             cipprocessdataDAO conn = cipprocessdataDAOfactory.getDAO(dataBase);
             List<cipprocessdata> data = new List<cipprocessdata>();
             //create instance of database object based on string, pull data from begin to end
+            if(reportType == "Moving Averages")
+            {
+                data = conn.GetMovingAveragesByDateTime(begin, end);
+            }
+            else if(reportType == "Averages")
+            {
+                data = conn.GetAveragesByDateTime(begin, end);
+            }
+            else
+            {
+                data = conn.GetDataByDateTime(begin, end);
+            }
 
-            data = conn.GetDataByDateTime(begin, end);
             String model = JsonConvert.SerializeObject(data);
             ViewData["Data"] = data;
             return View(data);
