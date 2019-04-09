@@ -31,7 +31,9 @@ namespace MySQLDapperDebug.Tests.Controllers
             //create instance of database object based on string, pull data from begin to end
             AppController controller = new AppController();
             //give data to view for use with graph - currently placeholders
-            ViewResult result = controller.ReadData("mysql", DateTime.Now, DateTime.Now ) as ViewResult;
+
+            // def wrong
+            ViewResult result = controller.ReadData("mysql", DateTime.Now, DateTime.Now, "Data" ) as ViewResult;
 
             //Assert
             Assert.IsNotNull(result.Model);
@@ -43,7 +45,19 @@ namespace MySQLDapperDebug.Tests.Controllers
             //create instance of database object based on string, pull data from begin to end
             AppController controller = new AppController();
             //give data to view for use with graph - currently placeholders
-            ViewResult result = controller.ReadData("mysql", DateTime.Now, DateTime.Now) as ViewResult;
+            ViewResult result = controller.ReadData("mysql", DateTime.Now, DateTime.Now, "Averages") as ViewResult;
+
+            //Assert
+            Assert.IsNotNull(result.Model);
+        }
+
+        [TestMethod]
+        public void ReadMovingAverages()
+        {
+            //create instance of database object based on string, pull data from begin to end
+            AppController controller = new AppController();
+            //give data to view for use with graph - currently placeholders
+            ViewResult result = controller.ReadData("mysql", DateTime.Now, DateTime.Now, "Moving Averages") as ViewResult;
 
             //Assert
             Assert.IsNotNull(result.Model);

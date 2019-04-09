@@ -69,7 +69,7 @@ namespace MySQLDapperDebug.Mapping
             using (var connection = new MySqlConnection(this.connectionString))
             {
                 //format for Dapper call: stored procedure name, type to create, command type (always should look like this)
-                data = connection.Query<cipprocessdata>("GetAverageByDateTime",
+                data = connection.Query<cipprocessdata>("GetAveragesByDateTime",
                     p,
                     commandType: System.Data.CommandType.StoredProcedure);
                 //always close the connection
@@ -112,5 +112,3 @@ namespace MySQLDapperDebug.Mapping
         }
     }
 }
-
-    

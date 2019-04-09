@@ -31,7 +31,7 @@ namespace MySQLDapperDebug.Mapping
                 // this implementation does not build a query string and thus doesn't
                 // risk injection attacks
                 data = connection.Query<cipprocessdata>("GetDataByDateTime",
-                    new { param1 = begin, param2 = end },
+                    new { a = begin, b = end },
                     commandType: System.Data.CommandType.StoredProcedure).ToList();
 
                 connection.Close();
@@ -51,7 +51,7 @@ namespace MySQLDapperDebug.Mapping
                 connection.Open();
 
                 data = connection.Query<cipprocessdata>("GetAveragesByDateTime",
-                    new { param1 = begin, param2 = end },
+                    new { a = begin, b = end },
                     commandType: System.Data.CommandType.StoredProcedure).ToList();
                 connection.Close();
             }
@@ -68,7 +68,7 @@ namespace MySQLDapperDebug.Mapping
                 connection.Open();
 
                 data = connection.Query<cipprocessdata>("GetMovingAveragesByDateTime",
-                    new { param1 = begin, param2 = end },
+                    new { a = begin, b = end },
                     commandType: System.Data.CommandType.StoredProcedure).ToList();
                 connection.Close();
             }
