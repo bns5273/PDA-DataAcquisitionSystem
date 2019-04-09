@@ -1,9 +1,0 @@
-C:\Users\Ben\Source\Repos\OneOnOneDemo\.vs\MySQLDapperDebug\lut\356\b\MySQLDapperDebug.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
-C:\Users\Ben\Source\Repos\OneOnOneDemo\.vs\MySQLDapperDebug\lut\356\b\MySQLDapperDebug.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
-C:\Users\Ben\Source\Repos\OneOnOneDemo\.vs\MySQLDapperDebug\lut\356\b\MySQLDapperDebug.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
-C:\Users\Ben\Source\Repos\OneOnOneDemo\.vs\MySQLDapperDebug\lut\356\b\MySQLDapperDebug.Tests\bin\Debug\MySQLDapperDebug.Tests.dll.config
-C:\Users\Ben\Source\Repos\OneOnOneDemo\.vs\MySQLDapperDebug\lut\356\b\MySQLDapperDebug.Tests\bin\Debug\MySQLDapperDebug.Tests.dll
-C:\Users\Ben\Source\Repos\OneOnOneDemo\.vs\MySQLDapperDebug\lut\356\i\MySQLDapperDebug.Tests\Debug\MySQLDapperDebug.Tests.csprojAssemblyReference.cache
-C:\Users\Ben\Source\Repos\OneOnOneDemo\.vs\MySQLDapperDebug\lut\356\i\MySQLDapperDebug.Tests\Debug\MySQLDapperDebug.Tests.csproj.CoreCompileInputs.cache
-C:\Users\Ben\Source\Repos\OneOnOneDemo\.vs\MySQLDapperDebug\lut\356\i\MySQLDapperDebug.Tests\Debug\MySQLDapperDebug.Tests.csproj.CopyComplete
-C:\Users\Ben\Source\Repos\OneOnOneDemo\.vs\MySQLDapperDebug\lut\356\i\MySQLDapperDebug.Tests\Debug\MySQLDapperDebug.Tests.dll

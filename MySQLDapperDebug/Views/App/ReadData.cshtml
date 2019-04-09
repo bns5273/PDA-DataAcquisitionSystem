@@ -273,7 +273,13 @@
             return new Date(parseInt(s, 10));
         }
 
-        var Data = @Html.Raw(Json.Encode(ViewData["Data"]));
+        @{ 
+            var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            serializer.MaxJsonLength = Int32.MaxValue;
+            var json = serializer.Serialize(ViewData["Data"]);
+        }
+
+        var Data = @Html.Raw(json);
         // iterate through json to fix datetimes
         var i;
         for (i = 0; i < Data.length; i++) {
