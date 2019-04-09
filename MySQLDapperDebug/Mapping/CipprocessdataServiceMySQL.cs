@@ -11,7 +11,7 @@ namespace MySQLDapperDebug.Mapping
     public class CipprocessdataServiceMySQL : cipprocessdataDAO
     {
         //connection string hardcoded to test mysql server
-        private readonly string connectionString = "server=127.0.0.1;user=root;database=collectcipprocessdata;port=3306;password=root";
+        private readonly string connectionString = "server=10.0.1.237;user=root;database=testdb;port=3306;password=C0ll3ct10n";
 
         public CipprocessdataServiceMySQL()
         {
@@ -69,7 +69,7 @@ namespace MySQLDapperDebug.Mapping
             using (var connection = new MySqlConnection(this.connectionString))
             {
                 //format for Dapper call: stored procedure name, type to create, command type (always should look like this)
-                data = connection.Query<cipprocessdata>("GetAverageByDateTime",
+                data = connection.Query<cipprocessdata>("GetAveragesByDateTime",
                     p,
                     commandType: System.Data.CommandType.StoredProcedure);
                 //always close the connection

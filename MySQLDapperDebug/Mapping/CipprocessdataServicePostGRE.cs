@@ -11,7 +11,7 @@ namespace MySQLDapperDebug.Mapping
     public class CipprocessdataServicePostGRE : cipprocessdataDAO
     {
         private readonly string connectionString = 
-            "Server=localhost;" +
+            "Server=10.0.1.239;" +
             "Port=5432;" +
             "Database=postgres;" +
             "User Id=postgres;" +
@@ -44,7 +44,7 @@ namespace MySQLDapperDebug.Mapping
                 connection.Open();
 
                 data = connection.Query<cipprocessdata>("\"GetAveragesByDateTime\"",
-                    new { param1 = begin, param2 = end },
+                    new { BeginDateTime = begin, EndDateTime = end },
                     commandType: System.Data.CommandType.StoredProcedure).ToList();
                 connection.Close();
             }
@@ -61,7 +61,7 @@ namespace MySQLDapperDebug.Mapping
                 connection.Open();
 
                 data = connection.Query<cipprocessdata>("\"GetMovingAveragesByDateTime\"",
-                    new { param1 = begin, param2 = end },
+                    new { BeginDateTime = begin, EndDateTime = end },
                     commandType: System.Data.CommandType.StoredProcedure).ToList();
                 connection.Close();
             }
