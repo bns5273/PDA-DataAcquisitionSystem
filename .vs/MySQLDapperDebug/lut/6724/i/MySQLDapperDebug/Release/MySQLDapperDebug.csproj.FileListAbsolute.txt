@@ -1,0 +1,1 @@
+C:\Users\Ben\Source\Repos\FirebirdVer\.vs\MySQLDapperDebug\lut\0\i\MySQLDapperDebug\Release\MySQLDapperDebug.csproj.CoreCompileInputs.cache

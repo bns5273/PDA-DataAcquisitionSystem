@@ -138,7 +138,6 @@
                             <option value="MySQL">MySQL</option>
                             <option value="firebird">Firebird</option>
                             <option value="postgre">PostGRE</option>
-                            <option value="">MongoDB</option>
                         </select>
                         <select id="reportType">
                             <option value="">Report</option>
@@ -197,7 +196,8 @@
                                 //we can now create a button and set its report to the value stored in ii
                                 btn = document.createElement("BUTTON");
                                 btn.setAttribute('class', 'btn btn-dark');
-                                btn.innerHTML = "Report " + ii;
+                                btn.innerHTML = sensors[ii] + " " + reportTypes[ii];
+
                                 //set the onclick function to calling up a past report.
                                 btn.onclick = function () {
                                     sessionStorage.setItem("Sensor", sensors[ii]);
@@ -206,6 +206,7 @@
                                 }
                                 //append the button to the document
                                 document.getElementById('reportDiv').appendChild(btn);
+                                //document.getElementById('reportDiv').appendChild("<br>");
                             }
                         }
                         

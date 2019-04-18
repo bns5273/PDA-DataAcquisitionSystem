@@ -11,7 +11,7 @@ namespace MySQLDapperDebug.Mapping
     public class CipprocessdataServicePostGRE : cipprocessdataDAO
     {
         private readonly string connectionString = 
-            "Server=10.0.1.239;" +
+            "Server=localhost;" +
             "Port=5432;" +
             "Database=postgres;" +
             "User Id=postgres;" +

@@ -1,0 +1,9 @@
+C:\Users\Ben\Source\Repos\FirebirdVer\.vs\MySQLDapperDebug\lut\0\b\MySQLDapperDebug.Tests\bin\Release\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\Ben\Source\Repos\FirebirdVer\.vs\MySQLDapperDebug\lut\0\b\MySQLDapperDebug.Tests\bin\Release\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\Ben\Source\Repos\FirebirdVer\.vs\MySQLDapperDebug\lut\0\b\MySQLDapperDebug.Tests\bin\Release\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\Ben\Source\Repos\FirebirdVer\.vs\MySQLDapperDebug\lut\0\b\MySQLDapperDebug.Tests\bin\Release\MySQLDapperDebug.Tests.dll.config
+C:\Users\Ben\Source\Repos\FirebirdVer\.vs\MySQLDapperDebug\lut\0\b\MySQLDapperDebug.Tests\bin\Release\MySQLDapperDebug.Tests.dll
+C:\Users\Ben\Source\Repos\FirebirdVer\.vs\MySQLDapperDebug\lut\0\i\MySQLDapperDebug.Tests\Release\MySQLDapperDebug.Tests.csprojAssemblyReference.cache
+C:\Users\Ben\Source\Repos\FirebirdVer\.vs\MySQLDapperDebug\lut\0\i\MySQLDapperDebug.Tests\Release\MySQLDapperDebug.Tests.csproj.CoreCompileInputs.cache
+C:\Users\Ben\Source\Repos\FirebirdVer\.vs\MySQLDapperDebug\lut\0\i\MySQLDapperDebug.Tests\Release\MySQLDapperDebug.Tests.csproj.CopyComplete
+C:\Users\Ben\Source\Repos\FirebirdVer\.vs\MySQLDapperDebug\lut\0\i\MySQLDapperDebug.Tests\Release\MySQLDapperDebug.Tests.dll
