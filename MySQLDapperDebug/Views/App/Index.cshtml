@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, shrink-to-fit=no"/>
     <title>Data Acquisition System</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="~/Content/ReadDataStyles.css" type="text/css" />
@@ -17,12 +18,12 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div id="UserInput" class="col-sm border border-dark">
-                <div class="container">
+            <div id="UserInput" class=" border border-dark">
+                <div class="container" id="userInput">
                     <div>
                         <form id="collectDateTime">
-                            <input id="startDate" class="datetime" name="StartDate" type="datetime-local" />
-                            <input id="endDate" class="datetime" name="EndDate" type="datetime-local" />
+                            <h3>Start Date:</h3><input id="startDate" class="datetime" name="StartDate" type="datetime-local" />
+                            <h3>End Date:</h3><input id="endDate" class="datetime" name="EndDate" type="datetime-local" />
                         </form>
                     </div><br />
                     <div>
@@ -55,8 +56,6 @@
                     </div><br />
                     <div>
                         <form name="ReportTypeSelection">
-                            <input type="radio" name="reportType" value="detail" checked />Detail
-                            <input type="radio" name="reportType" value="summary" />Summary
                             <button type="button" class="btn btn-dark" onclick="createNewGraph()">
                                 Create
                             </button>
@@ -68,12 +67,12 @@
 
                 </div>
             </div>
-            <div class="col-sm border border-dark">
+            <div class="col-md border border-dark">
                 <div>
                     <br />
                     <div id="graphDiv">
                         <script>
-
+                            var data;
                             Plotly.newPlot('graphDiv', data);
                         </script>
                     </div>
