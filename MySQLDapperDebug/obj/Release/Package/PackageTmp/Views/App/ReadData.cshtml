@@ -1,0 +1,318 @@
+﻿@model IEnumerable<MySQLDapperDebug.Models.cipprocessdata>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Acquisition System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/Content/ReadDataStyles.css" type="text/css" />
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+
+        function getTrace(Data) {
+            if (selectedReportType == "Averages") {
+                var x0 = ["Fit1FlowRate", "Lt1Gallons", "Lt2Gallons", "Pt1Pressure", "Pt2Pressure", "P1Speed", "P2Speed", "Tt1Temperature", "Tt2Temperature", "Tt3Temperature"];
+                var y0 = [Data[0].Fit1FlowRate, Data[0].Lt1Gallons, Data[0].Lt2Gallons, Data[0].Pt1Pressure, Data[0].Pt2Pressure, Data[0].P1Speed, Data[0].P2Speed, Data[0].Tt1Temperature, Data[0].Tt2Temperature, Data[0].Tt3Temperature];
+                var trace = {
+                    x: x0,
+                    y: y0,
+                    type: 'bar'
+                }
+                Plotly.newPlot("graphDiv", [trace]);
+            }
+            else {
+                var x0 = [];
+                var y0 = [];
+
+                var i;
+                for (i = 0; i < Data.length; i++) {
+                    x0[i] = Data[i].DateCreated;
+                    y0[i] = Data[i][selectedSensor];
+                }
+
+                var trace = {
+                    x: x0,
+                    y: y0,
+                    type: 'line',
+                    mode: 'lines+markers'
+                }
+
+                var layout = {
+                    xaxis: {
+                        type: 'date',
+                        title: 'Time'
+                    },
+                    yaxis: {
+                        title: 'Value'
+                    },
+                    title: Sensor.value,
+                    //plot_bgcolor: '#c7c7c7'
+                };
+
+                Plotly.newPlot("graphDiv", [trace], layout);
+            }
+        }
+
+        function createNewGraph() {
+            //add the current value of sensor to session storage
+            sessionStorage.setItem('Sensor', document.getElementById('Sensor').value);
+            //add the current value of reportType to session storage
+            sessionStorage.setItem('ReportType', document.getElementById('reportType').value);
+            //construct URL to be stored in sessionStorage re; report representation, window creation
+            var URL = 'ReadData?' +
+                'dataBase=' + document.getElementById('Database').value +
+                '&sensor=' + document.getElementById('Sensor').value +
+                '&begin=' + document.getElementById('startDate').value +
+                '&end=' + document.getElementById('endDate').value +
+                '&reportType=' + document.getElementById('reportType').value;
+            //now we create the array that we will store our report calls in
+            var generatedReports = new Array();
+            //we also create an array to store the sensor corresponding to each report in
+            var pastSensors = new Array();
+            //we also create an array to store the reportType corresponding to each report in
+            var pastReportTypes = new Array();
+            //make sure to update the array from our session storage first
+            generatedReports = JSON.parse(sessionStorage.getItem("reports"));
+            //repeat for the sensors array
+            pastSensors = JSON.parse(sessionStorage.getItem("sensors"));
+            //repeat for the reportType array
+            pastReportTypes = JSON.parse(sessionStorage.getItem("reportTypes"));
+            //now we push the new report in to the generatedReports array, and the sensor to the selectedSensors array
+            console.log(URL);
+            generatedReports.push(URL);
+            pastSensors.push(document.getElementById('Sensor').value);
+            pastReportTypes.push(document.getElementById('reportType').value);
+            //with the array appended, we stringify it and store it in sessionStorage
+            sessionStorage.setItem("reports", JSON.stringify(generatedReports));
+            sessionStorage.setItem('sensors', JSON.stringify(pastSensors));
+            sessionStorage.setItem('reportTypes', JSON.stringify(pastReportTypes));
+
+            //Finally we execute the call to ReadData
+            window.location.href = URL;
+
+
+        }
+
+        // prepare csv
+        function getCsv() {
+            let str = `${Object.keys(Data[0]).map(value => `"${value}"`).join(",")}` + '\r\n';
+
+            str = Data.reduce((str, next) => {
+                str += `${Object.values(next).map(value => `"${value}"`).join(",")}` + '\r\n';
+                return str;
+            }, str);
+
+            // create invisible element to download object, then remove
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(str));
+            element.setAttribute('download', 'download.csv');
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Reporting Web App</a>
+        </nav>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div id="UserInput" class="col-sm border border-dark">
+                <div class="container">
+                    <div>
+                        <form id="collectDateTime">
+                            <h3>Start Date:</h3><input id="startDate" class="datetime" name="StartDate" type="datetime-local" />
+                            <h3>End Date:</h3><input id="endDate" class="datetime" name="EndDate" type="datetime-local" />
+                        </form>
+                    </div><br />
+                    <div>
+                        <select id="Database" name="Database">
+                            <option value="">Database</option>
+                            <option value="MySQL">MySQL</option>
+                            <option value="firebird">Firebird</option>
+                            <option value="postgre">PostGRE</option>
+                            <option value="">MongoDB</option>
+                        </select>
+                        <select id="reportType">
+                            <option value="">Report</option>
+                            <option value="Date Time">Date Time</option>
+                            <option value="Averages">Averages</option>
+                            <option value="Moving Averages">Moving Averages</option>
+                        </select>
+                        <select id="Sensor" name="Sensor">
+                            <option value="">Sensor</option>
+                            <option value="Fit1FlowRate">Fit1FlowRate</option>
+                            <option value="Lt1Gallons">Lt1Gallons</option>
+                            <option value="Lt2Gallons">Lt2Gallons</option>
+                            <option value="Pt1Pressure">Pt1Pressure</option>
+                            <option value="Pt2Pressure">Pt2Pressure</option>
+                            <option value="P1Speed">P1Speed</option>
+                            <option value="P2Speed">P2Speed</option>
+                            <option value="Tt1Temperature">Tt1Temperature</option>
+                            <option value="Tt2Temperature">Tt2Temperature</option>
+                            <option value="Tt3Temperature">Tt3Temperature</option>
+                        </select>
+                    </div><br />
+                    <div>
+                        <form name="ReportTypeSelection">
+                            <input type="radio" name="reportType" value="detail" checked />Detail
+                            <input type="radio" name="reportType" value="summary" />Summary
+                            <button type="button" id="createGraph" class="btn btn-dark" onclick="createNewGraph()">
+                                Create
+                            </button>
+                            <button type="button" id="createCsv" class="btn btn-dark" onclick="getCsv()">
+                                Download
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <hr />
+                <div id="reportDiv">
+                    <script>
+                        //now on load, we can populate this area using our reports stored in session storage
+                        //first load the reports into an array
+                        var reports = [];
+                        //also load the sensors into an array such that the graph filters correctly
+                        var sensors = [];
+                        //also load the reportTypes into an array such that the graph filters correctly
+                        var reportTypes = [];
+                        var URL;
+                        var btn;
+                        sensors = JSON.parse(sessionStorage.getItem("sensors"));
+                        reports = JSON.parse(sessionStorage.getItem("reports"));
+                        reportTypes = JSON.parse(sessionStorage.getItem("reportTypes"));
+                        console.log(reports);
+                        //now iterate through and make a button each run
+                        for (i in reports) {
+                            //unforunately due to JS scoping we have to take closures into account
+                            //we throw the i because otherwise we're going to be remaining in the same scope
+                            try { throw i }
+                            //now we catch it cast to ii and use that for the indexing
+                            catch (ii) {
+                                //we can now create a button and set its report to the value stored in ii
+                                btn = document.createElement("BUTTON");
+                                btn.setAttribute('class', 'btn btn-dark');
+                                btn.innerHTML = "Report " + ii;
+                                //set the onclick function to calling up a past report.
+                                btn.onclick = function () {
+                                    sessionStorage.setItem("Sensor", sensors[ii]);
+                                    sessionStorage.setItem("ReportType", reportTypes[ii]);
+                                    window.location.href = reports[ii];
+                                }
+                                //append the button to the document
+                                document.getElementById('reportDiv').appendChild(btn);
+                            }
+                        }
+                        
+                    </script>
+                </div>
+            </div>
+            <div id="DisplayDiv" class="col-sm border border-dark">
+                <div>
+                    <br />
+                    <div id="graphDiv" onload="getTrace()">
+                        <script type="text/javascript">
+                            Sensor.addEventListener('change', getTrace());
+                        </script>
+                    </div>
+                </div>
+                <hr />
+                <div id="table">
+                        <table class="table table-hover">
+
+                            <tr>
+                                <th>DateCreated</th>
+                                <th>Fit1FlowRate</th>
+                                <th>Lt1Gallons</th>
+                                <th>Lt2Gallons</th>
+                                <th>Pt1Pressure</th>
+                                <th>Pt2Pressure</th>
+                                <th>P1Speed</th>
+                                <th>P2Speed</th>
+                                <th>Tt1Temperature</th>
+                                <th>Tt2Temperature</th>
+                                <th>Tt3Temperature</th>
+                            </tr>
+                            
+                            @foreach(var item in Model) {
+                            <tr>
+                                <td>@item.DateCreated</td>
+                                <td>@item.Fit1FlowRate</td>
+                                <td>@item.Lt1Gallons</td>
+                                <td>@item.Lt2Gallons</td>
+                                <td>@item.Pt1Pressure</td>
+                                <td>@item.Pt2Pressure</td>
+                                <td>@item.P1Speed</td>
+                                <td>@item.P2Speed</td>
+                                <td>@item.Tt1Temperature</td>
+                                <td>@item.Tt2Temperature</td>
+                                <td>@item.Tt3Temperature</td>
+                            </tr> 
+                            }
+                        </table>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar fixed-bottom navbar-dark bg-dark">
+            <a class="navbar-brand" href="#"></a>
+        </nav>
+    </div>
+
+    <script>
+        function fixTimestamp(p1) {
+            // gross! string -> digits -> int -> date
+            // datetimes are in JSON as string like "Date(12341234)"
+            var s = p1.replace(/\D/g, '');
+            return new Date(parseInt(s, 10));
+        }
+
+        @{ 
+            var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            serializer.MaxJsonLength = Int32.MaxValue;
+            var json = serializer.Serialize(ViewData["Data"]);
+        }
+
+        var Data = @Html.Raw(json);
+        // iterate through json to fix datetimes
+        var i;
+        for (i = 0; i < Data.length; i++) {
+            Data[i].DateCreated = fixTimestamp(Data[i].DateCreated);
+            Data[i].DateTransacted = fixTimestamp(Data[i].DateTransacted);
+            Data[i].DateCollected = fixTimestamp(Data[i].DateCollected);
+        }
+
+        //check the selected sensor's value - if it's null, check session storage
+        var Sensor = document.getElementById('Sensor');
+        var selectedSensor = document.getElementById('Sensor').value;
+        if (selectedSensor == "") {
+            //if the stored sensor value is not null, use it
+            var storedSensor = sessionStorage.getItem("Sensor");
+            if (storedSensor != "") {
+                selectedSensor = storedSensor;
+            }
+        }
+        //check the selected report type's value - if it's null, check session storage
+        var ReportType = document.getElementById('reportType');
+        var selectedReportType = document.getElementById('reportType').value;
+        if (selectedReportType == "") {
+            //if the stored report type value is not null use it
+            var storedReportType = sessionStorage.getItem("ReportType");
+            if (storedReportType != "") {
+                selectedReportType = storedReportType;
+            }
+        }
+        getTrace(Data);
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>
