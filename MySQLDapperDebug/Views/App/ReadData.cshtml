@@ -10,6 +10,9 @@
     <script>
 
         function getTrace(Data) {
+            var urlParams = new URLSearchParams(window.location.search);
+            var selectedReportType = urlParams.get("reportType");
+
             if (selectedReportType == "Averages") {
                 var x0 = ["Fit1FlowRate", "Lt1Gallons", "Lt2Gallons", "Pt1Pressure", "Pt2Pressure", "P1Speed", "P2Speed", "Tt1Temperature", "Tt2Temperature", "Tt3Temperature"];
                 var y0 = [Data[0].Fit1FlowRate, Data[0].Lt1Gallons, Data[0].Lt2Gallons, Data[0].Pt1Pressure, Data[0].Pt2Pressure, Data[0].P1Speed, Data[0].P2Speed, Data[0].Tt1Temperature, Data[0].Tt2Temperature, Data[0].Tt3Temperature];

@@ -14,7 +14,7 @@ namespace MySQLDapperDebug.Mapping
                                     "User=sysdba;" +
                                     "Password=masterkey;" +
                                     "Database=c:/db/data.fdb;" +
-                                    "DataSource=localhost;" +
+                                    "DataSource=10.0.1.240;" +
                                     "Port=3050;";
 
         //select all records from the database

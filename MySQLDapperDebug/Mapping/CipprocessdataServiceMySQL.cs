@@ -11,7 +11,7 @@ namespace MySQLDapperDebug.Mapping
     public class CipprocessdataServiceMySQL : cipprocessdataDAO
     {
         //connection string hardcoded to test mysql server
-        private readonly string connectionString = "server=localhost;user=root;database=seniordesign;port=3306;password=root";
+        private readonly string connectionString = "server=10.0.1.237;user=root;database=testdb;port=3306;password=C0ll3ct10n";
 
         public CipprocessdataServiceMySQL()
         {
